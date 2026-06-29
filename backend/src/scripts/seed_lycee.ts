@@ -31,6 +31,23 @@ async function upsertUser(email: string, role: string, plain: string) {
 }
 
 async function main() {
+    // 0. Tenant -----------------------------------------------------------------
+    let tenant = await prisma.tenants.findUnique({ where: { id: TENANT_ID } });
+    if (!tenant) {
+        tenant = await prisma.tenants.create({
+            data: {
+                id: TENANT_ID,
+                nom: 'Lycée Classique Tenant',
+                sous_domaine: 'lycee-classique',
+                plan_abonnement: 'premium',
+                statut: 'actif',
+                pays: 'CM',
+                fuseau_horaire: 'Africa/Douala',
+            }
+        });
+        console.log('✓ Tenant créé:', tenant.nom);
+    }
+
     // 1. École -----------------------------------------------------------------
     let ecole = await prisma.ecoles.findFirst({ where: { tenant_id: TENANT_ID } });
     if (!ecole) {

@@ -3,6 +3,17 @@
 
 @theme {
   --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+  --color-emerald-50: #fff5f1;
+  --color-emerald-100: #ffe3d5;
+  --color-emerald-200: #ffc8ad;
+  --color-emerald-300: #ffa27b;
+  --color-emerald-400: #ff7b49;
+  --color-emerald-500: #ff6b35;
+  --color-emerald-600: #e0531f;
+  --color-emerald-700: #bb3f13;
+  --color-emerald-800: #97320f;
+  --color-emerald-900: #7d2a0e;
+  --color-emerald-950: #461304;
 }
 
 html {
@@ -31,7 +42,7 @@ body {
   transition: box-shadow 0.15s;
 }
 .input-field:focus {
-  box-shadow: 0 0 0 2px #10b981;
+  box-shadow: 0 0 0 2px #ff6b35;
 }
 .input-field::placeholder {
   color: #94a3b8;

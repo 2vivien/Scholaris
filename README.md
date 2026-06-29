@@ -1,4 +1,4 @@
-# Scholaris
+# AcademiaTrack
 
 SaaS de gestion scolaire pour les établissements secondaires (contexte camerounais / MINESEC).
 

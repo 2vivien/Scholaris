@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-    const token = localStorage.getItem('scholaris_token');
+    const token = localStorage.getItem('academiatrack_token');
     if (token) {
         config.headers.Authorization = `Bearer ${token}`;
     }
@@ -16,8 +16,8 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         if (error.response?.status === 401) {
-            localStorage.removeItem('scholaris_token');
-            localStorage.removeItem('scholaris_user');
+            localStorage.removeItem('academiatrack_token');
+            localStorage.removeItem('academiatrack_user');
             window.location.href = '/login';
         }
         return Promise.reject(error);

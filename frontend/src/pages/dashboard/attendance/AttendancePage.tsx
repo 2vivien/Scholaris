@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import type { ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     UserCheck, UserX, Clock, AlertTriangle, BarChart3,
@@ -271,7 +272,7 @@ export default function AttendancePage() {
         return !q || p.eleve.nom.toLowerCase().includes(q) || p.eleve.prenom.toLowerCase().includes(q) || p.eleve.matricule.includes(q);
     });
 
-    const tabs: { id: Tab; label: string; icon: JSX.Element }[] = [
+    const tabs: { id: Tab; label: string; icon: ReactNode }[] = [
         { id: 'saisie',         label: 'Saisie',         icon: <UserCheck size={16} /> },
         { id: 'historique',     label: 'Historique',     icon: <Calendar  size={16} /> },
         { id: 'stats',          label: 'Statistiques',   icon: <BarChart3 size={16} /> },
@@ -661,7 +662,7 @@ function LoadingState() {
     );
 }
 
-function EmptyState({ icon, message }: { icon: JSX.Element; message: string }) {
+function EmptyState({ icon, message }: { icon: ReactNode; message: string }) {
     return (
         <div className="flex flex-col items-center justify-center py-16 text-slate-400 gap-3">
             <div className="text-slate-300">{icon}</div>

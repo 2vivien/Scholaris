@@ -1,7 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwtLib from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET est requis et doit être défini dans .env');
+}
 
 // Extension Customization to support `req.user`
 declare module 'express-serve-static-core' {

@@ -89,11 +89,9 @@ const LoginPage = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
                     <Link to="/" className="flex items-center gap-3 relative z-10 w-max group">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                            <BookOpen className="h-7 w-7 text-emerald-600" />
-                        </div>
+                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-12 h-12 object-contain rounded-[1.2rem] bg-white p-1 shadow-lg group-hover:scale-105 transition-transform duration-300" />
                         <span className="font-extrabold text-3xl tracking-tight text-white drop-shadow-md">
-                            Scholaris<span className="text-emerald-400">.</span>
+                            AcademiaTrack<span className="text-emerald-400">.</span>
                         </span>
                     </Link>
                 </motion.div>

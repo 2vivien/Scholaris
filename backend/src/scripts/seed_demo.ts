@@ -11,6 +11,40 @@ import bcrypt from 'bcrypt';
 const TENANT_ID = 'a04c0c79-f850-4ba2-b324-6fe3fb030b61'; // tenant de berioletsague@gmail.com
 
 async function main() {
+    // 0. Tenant & Super Admin --------------------------------------------------
+    let tenant = await prisma.tenants.findUnique({ where: { id: TENANT_ID } });
+    if (!tenant) {
+        tenant = await prisma.tenants.create({
+            data: {
+                id: TENANT_ID,
+                nom: 'Collège Sholaris Démo Tenant',
+                sous_domaine: 'demo',
+                plan_abonnement: 'premium',
+                statut: 'actif',
+                pays: 'CM',
+                fuseau_horaire: 'Africa/Douala',
+            }
+        });
+        console.log('✓ Tenant créé:', tenant.nom);
+    }
+
+    const SUPER_ADMIN_ID = '6e1d0337-ecf9-47b1-b524-5f008b005ca1';
+    let superAdmin = await prisma.utilisateurs.findUnique({ where: { id: SUPER_ADMIN_ID } });
+    if (!superAdmin) {
+        const hash = await bcrypt.hash('Admin1234!', 10);
+        superAdmin = await prisma.utilisateurs.create({
+            data: {
+                id: SUPER_ADMIN_ID,
+                tenant_id: TENANT_ID,
+                email: 'berioletsague@gmail.com',
+                role: 'super_admin',
+                mot_de_passe: hash,
+                est_actif: true,
+            }
+        });
+        console.log('✓ Super Admin créé:', superAdmin.email);
+    }
+
     // 1. École ----------------------------------------------------------------
     let ecole = await prisma.ecoles.findFirst({ where: { tenant_id: TENANT_ID } });
     if (!ecole) {

@@ -14,10 +14,8 @@ const LandingPage = () => {
             <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-2.5 group">
-                        <div className="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center group-hover:bg-emerald-700 transition-colors">
-                            <BookOpen className="w-4 h-4 text-white" />
-                        </div>
-                        <span className="font-bold text-[17px] tracking-tight text-slate-900">Scholaris</span>
+                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-8 h-8 object-contain rounded-lg" />
+                        <span className="font-bold text-[17px] tracking-tight text-slate-900">AcademiaTrack</span>
                     </Link>
 
                     <nav className="hidden md:flex items-center gap-1">
@@ -226,7 +224,7 @@ const LandingPage = () => {
                         Modernisez votre école dès aujourd'hui.
                     </h2>
                     <p className="text-slate-400 text-lg mb-10 leading-relaxed">
-                        Rejoignez les 120+ établissements qui ont confié leur gestion à Scholaris.
+                        Rejoignez les 120+ établissements qui ont confié leur gestion à AcademiaTrack.
                     </p>
                     <Link to="/login" className="inline-flex items-center gap-2 px-8 py-4 bg-emerald-600 text-white font-semibold rounded-xl hover:bg-emerald-500 transition-all shadow-xl shadow-emerald-600/20 text-base">
                         Contacter notre équipe <ArrowRight className="w-4 h-4" />
@@ -240,10 +238,8 @@ const LandingPage = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
                         <div>
                             <Link to="/" className="flex items-center gap-2 mb-4">
-                                <div className="w-7 h-7 bg-emerald-600 rounded-md flex items-center justify-center">
-                                    <BookOpen className="w-3.5 h-3.5 text-white" />
-                                </div>
-                                <span className="font-bold text-white text-sm">Scholaris</span>
+                                <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-7 h-7 object-contain rounded-md" />
+                                <span className="font-bold text-white text-sm">AcademiaTrack</span>
                             </Link>
                             <p className="text-slate-500 text-sm leading-relaxed">La référence de la gestion scolaire en Afrique Centrale.</p>
                         </div>
@@ -267,7 +263,7 @@ const LandingPage = () => {
                     </div>
 
                     <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <p className="text-slate-600 text-sm">© 2026 Scholaris. Développé pour l'éducation africaine.</p>
+                        <p className="text-slate-600 text-sm">© 2026 AcademiaTrack. Développé pour l'éducation africaine.</p>
                         <div className="flex gap-6">
                             <a href="#" className="text-slate-600 text-sm hover:text-white transition-colors">Confidentialité</a>
                             <a href="#" className="text-slate-600 text-sm hover:text-white transition-colors">CGU</a>
@@ -294,7 +290,7 @@ const DashboardMockup = () => (
                     <div className="w-2.5 h-2.5 rounded-full bg-slate-300" />
                 </div>
                 <div className="flex-1 bg-white rounded-md px-3 py-1 text-[11px] text-slate-400 border border-slate-100 font-mono">
-                    lycee-bilingue.scholaris.cm
+                    lycee-bilingue.academiatrack.cm
                 </div>
             </div>
 
@@ -304,7 +300,7 @@ const DashboardMockup = () => (
                 <div className="w-44 border-r border-slate-100 bg-slate-50/80 p-3 flex flex-col gap-0.5 shrink-0">
                     <div className="flex items-center gap-2 px-2 py-2 mb-2">
                         <div className="w-5 h-5 bg-emerald-600 rounded-md shrink-0" />
-                        <span className="text-[11px] font-bold text-slate-900">Scholaris</span>
+                        <span className="text-[11px] font-bold text-slate-900">AcademiaTrack</span>
                     </div>
                     {[
                         { label: 'Tableau de bord', active: true },

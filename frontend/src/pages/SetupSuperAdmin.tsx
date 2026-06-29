@@ -129,7 +129,7 @@ const SetupSuperAdmin = () => {
                                         placeholder="hq"
                                     />
                                     <span className="inline-flex items-center px-3 py-2 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 sm:text-sm">
-                                        .scholaris.com
+                                        .academiatrack.com
                                     </span>
                                 </div>
                             </div>

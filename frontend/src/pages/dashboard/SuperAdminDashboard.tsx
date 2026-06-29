@@ -71,10 +71,8 @@ const SuperAdminDashboard = () => {
             {/* ── Top Bar ────────────────────────────────────────────────────── */}
             <header className="h-14 bg-white border-b border-slate-200 flex items-center justify-between px-6 shrink-0">
                 <div className="flex items-center gap-3">
-                    <div className="w-7 h-7 bg-emerald-600 rounded-lg flex items-center justify-center">
-                        <BookOpen className="w-3.5 h-3.5 text-white" />
-                    </div>
-                    <span className="font-bold text-sm text-slate-900">Scholaris</span>
+                    <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-7 h-7 object-contain rounded-lg" />
+                    <span className="font-bold text-sm text-slate-900">AcademiaTrack</span>
                     <span className="text-slate-300 text-xs font-medium ml-1 px-2 py-0.5 rounded-full bg-slate-100">Super Admin</span>
                 </div>
 
@@ -104,7 +102,7 @@ const SuperAdminDashboard = () => {
                     <div>
                         <h1 className="text-xl font-bold text-slate-900">Vue d'ensemble</h1>
                         <p className="text-sm text-slate-500 mt-0.5">
-                            Bienvenue, <span className="font-semibold">{user?.email.split('@')[0]}</span> — plateforme Scholaris
+                            Bienvenue, <span className="font-semibold">{user?.email.split('@')[0]}</span> — plateforme AcademiaTrack
                         </p>
                     </div>
                     <button
@@ -199,7 +197,7 @@ const SuperAdminDashboard = () => {
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4">
-                                                <span className="font-mono text-xs text-slate-500">{tenant.sous_domaine}.scholaris.cm</span>
+                                                <span className="font-mono text-xs text-slate-500">{tenant.sous_domaine}.academiatrack.cm</span>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <PlanBadge plan={tenant.plan_abonnement} />

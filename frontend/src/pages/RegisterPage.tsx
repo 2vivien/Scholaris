@@ -91,11 +91,9 @@ const RegisterPage = () => {
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
                     <Link to="/" className="flex items-center gap-3 relative z-10 w-max group">
-                        <div className="w-12 h-12 rounded-[1.2rem] bg-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-300">
-                            <BookOpen className="h-7 w-7 text-emerald-600" />
-                        </div>
+                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-12 h-12 object-contain rounded-[1.2rem] bg-white p-1 shadow-lg group-hover:scale-105 transition-transform duration-300" />
                         <span className="font-extrabold text-3xl tracking-tight text-white drop-shadow-md">
-                            Scholaris<span className="text-emerald-400">.</span>
+                            AcademiaTrack<span className="text-emerald-400">.</span>
                         </span>
                     </Link>
                 </motion.div>
@@ -213,7 +211,7 @@ const RegisterPage = () => {
 
                                 <motion.div variants={fadeInUp} className="space-y-2">
                                     <label className="block text-sm font-extrabold text-slate-700">
-                                        Sous-domaine <span className="text-slate-400 font-medium">.scholaris.cm</span>
+                                        Sous-domaine <span className="text-slate-400 font-medium">.academiatrack.cm</span>
                                     </label>
                                     <div className="relative group">
                                         <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-600 transition-colors" size={18} />
@@ -227,7 +225,7 @@ const RegisterPage = () => {
                                         />
                                     </div>
                                     <p className="text-xs text-slate-400 font-medium ml-1">
-                                        Votre URL : <span className="text-emerald-600 font-bold">{formData.sous_domaine || 'votre-ecole'}.scholaris.cm</span>
+                                        Votre URL : <span className="text-emerald-600 font-bold">{formData.sous_domaine || 'votre-ecole'}.academiatrack.cm</span>
                                     </p>
                                 </motion.div>
 
@@ -346,7 +344,7 @@ const RegisterPage = () => {
                                     <p className="text-xs font-black uppercase text-slate-400 tracking-widest">Récapitulatif</p>
                                     <div className="space-y-3">
                                         <SummaryRow label="Établissement" value={formData.nom_tenant} />
-                                        <SummaryRow label="URL" value={`${formData.sous_domaine}.scholaris.cm`} highlight />
+                                        <SummaryRow label="URL" value={`${formData.sous_domaine}.academiatrack.cm`} highlight />
                                         <SummaryRow label="Pays" value={formData.pays} />
                                         <SummaryRow label="Email admin" value={formData.email} />
                                     </div>

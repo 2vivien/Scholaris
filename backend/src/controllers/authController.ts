@@ -5,7 +5,10 @@ import { prisma } from '../lib/prisma';
 import { sendOTP } from '../services/emailService';
 import crypto from 'crypto';
 
-const JWT_SECRET = process.env.JWT_SECRET || 'secret';
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+    throw new Error('JWT_SECRET is requis et doit être défini dans .env');
+}
 const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '24h';
 
 // Helper pour générer un code OTP 6 chiffres

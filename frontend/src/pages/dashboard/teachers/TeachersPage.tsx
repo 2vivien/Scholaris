@@ -62,7 +62,6 @@ const TeachersPage = () => {
     const openEdit = (t: Teacher) => {
         setEditTarget(t);
         setForm({
-            matricule: t.matricule,
             nom: t.nom,
             prenom: t.prenom,
             specialite: t.specialite ?? '',

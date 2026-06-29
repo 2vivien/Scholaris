@@ -114,7 +114,6 @@ const StudentsPage = () => {
     const openEdit = (s: Student) => {
         setEditTarget(s);
         setForm({
-            matricule: s.matricule,
             nom: s.nom,
             prenom: s.prenom,
             date_naissance: s.date_naissance?.split('T')[0] ?? '',

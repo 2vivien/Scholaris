@@ -93,7 +93,7 @@ export const createTeacher = async (req: Request, res: Response) => {
             return res.status(409).json({ error: 'Un compte avec cet email existe déjà.' });
         }
 
-        const tempPassword = `Scholaris${new Date().getFullYear()}!`;
+        const tempPassword = `AcademiaTrack${new Date().getFullYear()}!`;
         const hashedPassword = await bcrypt.hash(tempPassword, 10);
 
         const matricule = await genMatriculeEnseignant(ecole_id);

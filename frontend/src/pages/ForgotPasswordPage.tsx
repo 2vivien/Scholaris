@@ -51,12 +51,10 @@ const ForgotPasswordPage = () => {
                             to="/"
                             className="inline-flex items-center gap-3 mb-12"
                         >
-                            <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-xl border border-white/10 flex items-center justify-center">
-                                <BookOpen className="w-6 h-6 text-emerald-400" />
-                            </div>
+                            <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-12 h-12 object-contain rounded-2xl bg-white/10 p-1 backdrop-blur-xl border border-white/10" />
 
                             <span className="text-white font-black text-2xl">
-                                Scholaris
+                                AcademiaTrack
                                 <span className="text-emerald-400">.</span>
                             </span>
                         </Link>

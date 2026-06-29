@@ -26,8 +26,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem('scholaris_token');
-        const storedUser = localStorage.getItem('scholaris_user');
+        const storedToken = localStorage.getItem('academiatrack_token');
+        const storedUser = localStorage.getItem('academiatrack_user');
 
         if (storedToken && storedUser) {
             try {
@@ -48,15 +48,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     const login = (newToken: string, newUser: User) => {
-        localStorage.setItem('scholaris_token', newToken);
-        localStorage.setItem('scholaris_user', JSON.stringify(newUser));
+        localStorage.setItem('academiatrack_token', newToken);
+        localStorage.setItem('academiatrack_user', JSON.stringify(newUser));
         setToken(newToken);
         setUser(newUser);
     };
 
     const logout = () => {
-        localStorage.removeItem('scholaris_token');
-        localStorage.removeItem('scholaris_user');
+        localStorage.removeItem('academiatrack_token');
+        localStorage.removeItem('academiatrack_user');
         setToken(null);
         setUser(null);
     };

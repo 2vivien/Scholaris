@@ -229,7 +229,7 @@ export default function TimetablePage() {
     };
 
     // Lignes horaires
-    const hourLines = [];
+    const hourLines: number[] = [];
     for (let h = Math.ceil(TIME_START); h <= TIME_END; h++) {
         hourLines.push(h);
     }

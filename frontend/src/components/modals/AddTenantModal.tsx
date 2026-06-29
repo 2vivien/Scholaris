@@ -98,7 +98,7 @@ const AddTenantModal = ({ isOpen, onClose, onSuccess }: AddTenantModalProps) => 
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-black text-slate-700 ml-1">Sous-domaine (.scholaris.cm)</label>
+                                    <label className="text-sm font-black text-slate-700 ml-1">Sous-domaine (.academiatrack.cm)</label>
                                     <div className="relative">
                                         <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                                         <input
@@ -154,7 +154,7 @@ const AddTenantModal = ({ isOpen, onClose, onSuccess }: AddTenantModalProps) => 
                             </div>
 
                             <div className="flex items-center justify-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest mt-6">
-                                <ShieldCheck size={14} className="text-emerald-500" /> Infrastructure Cloud Sécurisée Scholaris
+                                <ShieldCheck size={14} className="text-emerald-500" /> Infrastructure Cloud Sécurisée AcademiaTrack
                             </div>
                         </form>
                     </div>

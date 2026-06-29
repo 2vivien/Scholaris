@@ -10,7 +10,7 @@ import { useAuth } from '../../context/AuthContext';
 import api from '../../lib/api';
 import NotificationBell from '../../components/NotificationBell';
 
-const NAV_ITEMS = [
+const NAV_ITEMS: { icon: any; label: string; path: string; disabled?: boolean }[] = [
     { icon: LayoutDashboard, label: 'Tableau de bord', path: '/ecole-dashboard' },
     { icon: Calendar, label: 'Années scolaires', path: '/ecole-dashboard/years' },
     { icon: Layers, label: 'Classes', path: '/ecole-dashboard/classes' },
@@ -58,9 +58,7 @@ const SchoolDashboard = () => {
                 {/* Logo */}
                 <div className="h-14 flex items-center justify-between px-5 border-b border-slate-100 shrink-0">
                     <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 bg-emerald-600 rounded-lg flex items-center justify-center shrink-0">
-                            <BookOpen className="w-3.5 h-3.5 text-white" />
-                        </div>
+                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-7 h-7 object-contain rounded-lg shrink-0" />
                         <span className="font-bold text-sm text-slate-900 truncate max-w-[120px]">{schoolName}</span>
                     </div>
                     <button onClick={() => setMobileOpen(false)} className="lg:hidden p-1 text-slate-400">
@@ -221,7 +219,7 @@ const SchoolHomeDashboard = () => {
                 <div className="absolute -right-8 -top-8 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
                 <div className="relative z-10">
                     <p className="text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                        {stats?.annee_active ? stats.annee_active.libelle : 'Scholaris'}
+                        {stats?.annee_active ? stats.annee_active.libelle : 'AcademiaTrack'}
                     </p>
                     <h2 className="text-xl font-bold text-white mb-1">{user?.tenant_name}</h2>
                     <p className="text-slate-400 text-sm">

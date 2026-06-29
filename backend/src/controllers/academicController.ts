@@ -203,7 +203,7 @@ export const seedTestAccounts = async (req: Request, res: Response) => {
         'angelleg888@gmail.com',
         'tsaguedjeume@gmail.com'
     ];
-    const password = await bcrypt.hash('Scholaris2026!', 10);
+    const password = await bcrypt.hash('AcademiaTrack2026!', 10);
     const results = [];
 
     for (const email of emails) {
@@ -214,7 +214,7 @@ export const seedTestAccounts = async (req: Request, res: Response) => {
             const tenant = await prisma.tenants.create({
                 data: {
                     nom: schoolName,
-                    sous_domaine: `${subdomain}.scholaris.com`,
+                    sous_domaine: `${subdomain}.academiatrack.com`,
                     plan_abonnement: 'PRO',
                     statut: 'actif',
                     pays: 'CM',
