@@ -9,13 +9,13 @@ import ChildFinances from './components/ChildFinances';
 
 export default function ParentDashboard() {
     const { logout } = useAuth();
-    const { children, activeChild, setActiveChild, activeTab, setActiveTab, loading } = useParentDashboard();
+    const { children, activeChild, setActiveChild, profile, activeTab, setActiveTab, loading } = useParentDashboard();
 
     if (loading) return <div className="flex justify-center p-20"><Loader2 className="w-8 h-8 animate-spin text-emerald-600" /></div>;
 
     return (
         <div className="min-h-screen bg-slate-50 flex">
-            <ParentSidebar logout={logout} />
+            <ParentSidebar logout={logout} profile={profile} />
             <div className="flex-1 flex flex-col">
                 <ParentHeader children={children} activeChild={activeChild} setActiveChild={setActiveChild} />
                 <main className="flex-1 w-full p-6 space-y-6">

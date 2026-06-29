@@ -5,12 +5,14 @@ import { getChildBulletins } from '../controllers/parents/bulletins';
 import { getChildFinances } from '../controllers/parents/finances';
 import { initiateOnlinePayment } from '../controllers/parents/payments';
 import { checkMyPaymentStatus } from '../controllers/parents/status';
+import { getParentProfile } from '../controllers/parents/profile';
 
 const router = Router();
 router.use(authenticateJWT);
 router.use(requireRole(['parent']));
 
 router.get('/children', getMyChildren);
+router.get('/profile', getParentProfile);
 router.get('/bulletins/:eleveId', getChildBulletins);
 router.get('/finances/:eleveId', getChildFinances);
 router.post('/pay-online', initiateOnlinePayment);
