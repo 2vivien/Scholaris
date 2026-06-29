@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { login, register, setupSuperAdmin, requestPasswordReset, resetPasswordWithOTP } from '../controllers/authController';
+import { getEtablissementsDisponibles } from '../controllers/auth/mySchools';
+import { authenticateJWT } from '../middlewares/authMiddleware';
 
 const router = Router();
 
@@ -17,5 +19,8 @@ router.post('/password/request-reset', requestPasswordReset);
 
 // Route pour soumettre l'OTP et le nouveau mot de passe
 router.post('/password/reset', resetPasswordWithOTP);
+
+// Liste des écoles disponibles
+router.get('/etablissements', authenticateJWT, getEtablissementsDisponibles);
 
 export default router;

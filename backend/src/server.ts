@@ -22,6 +22,7 @@ import calendarRoutes      from './routes/calendarRoutes';
 import reportRoutes        from './routes/reportRoutes';
 import uploadRoutes        from './routes/uploadRoutes';
 import parentRoutes        from './routes/parentRoutes';
+import forumRoutes         from './routes/forumRoutes';
 import { UPLOAD_DIR } from './lib/upload';
 
 dotenv.config();
@@ -56,6 +57,7 @@ app.use('/api/calendar',      calendarRoutes);
 app.use('/api/reports',       reportRoutes);
 app.use('/api/uploads',       uploadRoutes);
 app.use('/api/parents',       parentRoutes);
+app.use('/api/forum',         forumRoutes);
 
 // Base Route pour le Health Check
 app.get('/api/health', async (req: Request, res: Response) => {

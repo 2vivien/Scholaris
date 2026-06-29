@@ -30,6 +30,8 @@ model tenants {
   messages       messages[]
   notifications  notifications[]
   logs_activites logs_activites[]
+  forum_topics   forum_topics[]
+  forum_reponses forum_reponses[]
 }
 
 model ecoles {
@@ -114,6 +116,8 @@ model utilisateurs {
   bulletins_generes   bulletins[]               @relation("BulletinGenerateur")
   paiements_encaisses paiements[]               @relation("PaiementEncaisseur")
   absences_validees   justifications_absences[] @relation("JustificationValideur")
+  forum_topics        forum_topics[]
+  forum_reponses      forum_reponses[]
 
   @@unique([tenant_id, email])
 }
@@ -583,4 +587,67 @@ model logs_activites {
 
   utilisateur utilisateurs @relation(fields: [utilisateur_id], references: [id])
   tenant      tenants      @relation(fields: [tenant_id], references: [id])
+}
+
+model forum_topics {
+  id             String   @id @default(uuid()) @db.Uuid
+  tenant_id      String   @db.Uuid
+  auteur_id      String   @db.Uuid
+  titre          String   @db.VarChar
+  corps          String?  @db.Text
+  tags           String[] @default([])
+  type           String   @db.VarChar @default("text") // text | image | lien
+  lien_url       String?  @db.VarChar
+  est_epingle    Boolean  @default(false)
+  est_verrouille Boolean  @default(false)
+  est_supprime   Boolean  @default(false)
+  created_at     DateTime @default(now()) @db.Timestamp(6)
+  updated_at     DateTime @updatedAt @db.Timestamp(6)
+
+  tenant         tenants           @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+  auteur         utilisateurs      @relation(fields: [auteur_id], references: [id], onDelete: Cascade)
+  reponses       forum_reponses[]
+  reactions      forum_reactions[]
+  images         forum_images[]
+
+  @@index([tenant_id])
+}
+
+model forum_reponses {
+  id                 String   @id @default(uuid()) @db.Uuid
+  tenant_id          String   @db.Uuid
+  topic_id           String   @db.Uuid
+  auteur_id          String   @db.Uuid
+  reponse_parent_id  String?  @db.Uuid
+  corps              String   @db.Text
+  est_supprime       Boolean  @default(false)
+  created_at         DateTime @default(now()) @db.Timestamp(6)
+
+  topic    forum_topics @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+  auteur   utilisateurs @relation(fields: [auteur_id], references: [id], onDelete: Cascade)
+  tenant   tenants      @relation(fields: [tenant_id], references: [id], onDelete: Cascade)
+
+  @@index([tenant_id])
+  @@index([topic_id])
+}
+
+model forum_reactions {
+  id              String   @id @default(uuid()) @db.Uuid
+  topic_id        String   @db.Uuid
+  utilisateur_id  String   @db.Uuid
+  type            String   @db.VarChar @default("like")
+  created_at      DateTime @default(now()) @db.Timestamp(6)
+
+  topic  forum_topics @relation(fields: [topic_id], references: [id], onDelete: Cascade)
+
+  @@unique([topic_id, utilisateur_id])
+}
+
+model forum_images {
+  id          String   @id @default(uuid()) @db.Uuid
+  topic_id    String   @db.Uuid
+  url         String   @db.VarChar
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+
+  topic  forum_topics @relation(fields: [topic_id], references: [id], onDelete: Cascade)
 }

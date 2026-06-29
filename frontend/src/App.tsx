@@ -28,6 +28,9 @@ import TeacherGrades     from './pages/teacher/TeacherGrades';
 import TeacherAttendance from './pages/teacher/TeacherAttendance';
 import TeacherTimetable  from './pages/teacher/TeacherTimetable';
 import ParentDashboard from './pages/parent/ParentDashboard';
+import ForumPage from './pages/forum/ForumPage';
+import CreateTopicPage from './pages/forum/CreateTopicPage';
+import TopicDetailPage from './pages/forum/TopicDetailPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
@@ -41,6 +44,13 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/setup-superadmin" element={<SetupSuperAdmin />} />
           <Route path="/parent" element={<ParentDashboard />} />
+
+          {/* Forum Communautaire (tous rôles autorisés) */}
+          <Route element={<ProtectedRoute allowedRoles={['parent', 'enseignant', 'admin_ecole']} />}>
+            <Route path="/forum" element={<ForumPage />} />
+            <Route path="/forum/create" element={<CreateTopicPage />} />
+            <Route path="/forum/topics/:id" element={<TopicDetailPage />} />
+          </Route>
 
           {/* Super Admin */}
           <Route element={<ProtectedRoute allowedRoles={['super_admin']} />}>
