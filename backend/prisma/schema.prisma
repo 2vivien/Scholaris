@@ -129,6 +129,7 @@ model profils_enseignants {
   telephone          String?   @db.VarChar
   date_prise_service DateTime? @db.Date
   photo_url          String?   @db.VarChar
+  username           String?   @db.VarChar
 
   utilisateur utilisateurs @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
   ecole       ecoles       @relation(fields: [ecole_id], references: [id], onDelete: Cascade)
@@ -150,14 +151,14 @@ model profils_eleves {
   date_naissance DateTime @db.Date
   lieu_naissance String   @db.VarChar
   sexe           String?  @db.VarChar
-  nationalite    String?  @db.VarChar
+  nationalite    String   @default("Camerounaise") @db.VarChar
   photo_url      String?  @db.VarChar
-  statut         String   @default("actif") @db.VarChar // actif | diplome | exclu | transfere
+  statut         String   @default("actif") @db.VarChar // actif | suspendu | quitte
 
-  utilisateur  utilisateurs?  @relation(fields: [utilisateur_id], references: [id], onDelete: SetNull)
   ecole        ecoles         @relation(fields: [ecole_id], references: [id], onDelete: Cascade)
-  parents      eleve_parent[]
+  utilisateur  utilisateurs?  @relation(fields: [utilisateur_id], references: [id], onDelete: SetNull)
   inscriptions inscriptions[]
+  parents      eleve_parent[]
   notes        notes[]
   bulletins    bulletins[]
   presences    presences[]
@@ -173,6 +174,8 @@ model profils_parents {
   operateur_mobile_money String? @db.VarChar
   profession             String? @db.VarChar
   adresse                String? @db.Text
+  photo_url              String? @db.VarChar
+  username               String? @db.VarChar
 
   utilisateur    utilisateurs              @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
   enfants        eleve_parent[]

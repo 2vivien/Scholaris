@@ -24,21 +24,24 @@ export const createTeacher = async (req: Request, res: Response) => {
     if (!nom || !prenom || !email) return res.status(400).json({ error: 'Requis.' });
 
     try {
+        if (await prisma.utilisateurs.findFirst({ where: { tenant_id, email } })) return res.status(409).json({ error: 'Email existe déjà.' });
         const ecole_id = await getEcoleId(tenant_id);
         if (!ecole_id) return res.status(404).json({ error: 'École introuvable.' });
-        if (await prisma.utilisateurs.findFirst({ where: { tenant_id, email } })) return res.status(409).json({ error: 'Email existe déjà.' });
 
         const pswd = crypto.randomBytes(4).toString('hex');
         const hashedPassword = await bcrypt.hash(pswd, 10);
         const matricule = await genMatriculeEnseignant(ecole_id);
         const photo_url = generateTeacherAvatar(matricule);
+        const uNom = nom.toLowerCase().trim().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+        const uPrenom = prenom.toLowerCase().trim().replace(/[^a-z0-9]/g, '-').replace(/-+/g, '-');
+        const username = `prof/${uNom}-${uPrenom}`.replace(/-+$/, '');
 
         const result = await prisma.$transaction(async (tx: any) => {
             const utilisateur = await tx.utilisateurs.create({ data: { tenant_id, email, mot_de_passe: hashedPassword, role: 'enseignant' } });
             return await tx.profils_enseignants.create({
                 data: { 
                     utilisateur_id: utilisateur.id, ecole_id, matricule, nom: nom.toUpperCase(), prenom, 
-                    specialite: specialite || null, telephone: telephone || null, photo_url
+                    specialite: specialite || null, telephone: telephone || null, photo_url, username
                 },
             });
         });
