@@ -8,7 +8,7 @@ import {
     archiveStudent,
     getStudentCount,
     getStudentsByClass,
-} from '../controllers/studentController';
+} from '../controllers/students';
 
 const router = Router();
 

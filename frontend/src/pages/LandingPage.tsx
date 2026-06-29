@@ -44,7 +44,7 @@ const LandingPage = () => {
             <header className={`fixed top-0 w-full z-50 backdrop-blur-md border-b transition-colors duration-300 ${t('bg-white/90 border-slate-100', 'bg-black/80 border-zinc-900')}`}>
                 <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
                     <Link to="/" className="flex items-center gap-2.5 group relative z-10">
-                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className={`w-8 h-8 object-contain rounded-lg ${isDark ? 'filter invert' : ''}`} />
+                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-8 h-8 object-contain rounded-lg" />
                         <span className={`font-extrabold text-[18px] tracking-tight ${t('text-slate-900', 'text-white')}`}>AcademiaTrack</span>
                     </Link>
 
@@ -77,7 +77,7 @@ const LandingPage = () => {
                             Connexion
                         </Link>
                         
-                        <Link to="/login" className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-white text-black hover:bg-zinc-200')}`}>
+                        <Link to="/login" className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
                             Commencer <ArrowRight className="w-3.5 h-3.5" />
                         </Link>
                     </div>
@@ -99,7 +99,7 @@ const LandingPage = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4 mb-10">
-                            <Link to="/login" className={`inline-flex items-center gap-2 px-6 py-3.5 text-xs font-black uppercase tracking-widest rounded-lg transition-all shadow-xl ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-white text-black hover:bg-zinc-200')}`}>
+                            <Link to="/login" className={`inline-flex items-center gap-2 px-6 py-3.5 text-xs font-black uppercase tracking-widest rounded-lg transition-all shadow-xl ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
                                 Commencer le parcours <ArrowRight className="w-4 h-4" />
                             </Link>
                             <Link to="/login" className={`inline-flex items-center gap-2 px-6 py-3.5 text-xs font-black uppercase tracking-widest rounded-lg border transition-all ${t('bg-white text-slate-900 border-slate-200 hover:border-slate-300', 'bg-transparent text-white border-zinc-800 hover:border-zinc-600')}`}>
@@ -203,7 +203,7 @@ const LandingPage = () => {
                                 <h3 className={`text-lg font-bold uppercase tracking-tight mb-2 ${t('text-slate-900', 'text-white')}`}>{f.title}</h3>
                                 <p className={`text-xs leading-relaxed mb-6 h-12 overflow-hidden ${t('text-slate-500', 'text-zinc-500')}`}>{f.desc}</p>
                                 
-                                <Link to="/login" className={`inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${t('bg-slate-50 text-slate-900 border border-slate-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600', 'bg-white text-black hover:bg-zinc-200')}`}>
+                                <Link to="/login" className={`inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-lg transition-all ${t('bg-slate-50 text-slate-900 border border-slate-200 hover:bg-emerald-600 hover:text-white hover:border-emerald-600', 'bg-emerald-600 text-white hover:bg-emerald-500')}`}>
                                     Lancer le module
                                 </Link>
                             </motion.div>
@@ -227,7 +227,7 @@ const LandingPage = () => {
                             { n: '3', title: 'Pilotage en direct', desc: 'Notes saisies, bulletins générés automatiquement, parents notifiés. La machine tourne seule.' },
                         ].map((step, i) => (
                             <div key={i} className={`flex gap-6 items-start p-6 border rounded-xl transition-all group ${t('bg-white border-slate-200 shadow-sm hover:border-emerald-300', 'bg-zinc-950/60 border-zinc-900 hover:border-zinc-700')}`}>
-                                <div className={`w-10 h-10 rounded-full font-black text-sm flex items-center justify-center shrink-0 transition-colors ${t('bg-emerald-100 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white', 'bg-white text-black')}`}>
+                                <div className={`w-10 h-10 rounded-full font-black text-sm flex items-center justify-center shrink-0 transition-colors ${t('bg-emerald-100 text-emerald-700 group-hover:bg-emerald-600 group-hover:text-white', 'bg-emerald-600 text-white')}`}>
                                     {step.n}
                                 </div>
                                 <div>
@@ -312,7 +312,7 @@ const LandingPage = () => {
                     <p className={`text-md mb-10 leading-relaxed max-w-lg mx-auto ${t('text-slate-500', 'text-zinc-500')}`}>
                         Rejoignez les 120+ établissements qui ont confié leur gestion à AcademiaTrack.
                     </p>
-                    <Link to="/login" className={`inline-flex items-center gap-2 px-8 py-4 font-black text-xs uppercase tracking-widest rounded-lg transition-all shadow-xl ${t('bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20', 'bg-white text-black hover:bg-zinc-200')}`}>
+                    <Link to="/login" className={`inline-flex items-center gap-2 px-8 py-4 font-black text-xs uppercase tracking-widest rounded-lg transition-all shadow-xl ${t('bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
                         Contacter notre équipe <ArrowRight className="w-4 h-4" />
                     </Link>
                 </div>
@@ -324,7 +324,7 @@ const LandingPage = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
                         <div>
                             <Link to="/" className="flex items-center gap-2 mb-4">
-                                <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className={`w-7 h-7 object-contain rounded-md ${isDark ? 'filter invert' : ''}`} />
+                                <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-7 h-7 object-contain rounded-md" />
                                 <span className={`font-extrabold text-sm ${t('text-slate-900', 'text-white')}`}>AcademiaTrack</span>
                             </Link>
                             <p className={`text-xs leading-relaxed ${t('text-slate-500', 'text-zinc-500')}`}>La référence de la gestion scolaire en Afrique Centrale.</p>
@@ -385,7 +385,7 @@ const DashboardMockup = ({ isDark, t }: { isDark: boolean, t: (l: string, d: str
                 {/* Sidebar */}
                 <div className={`w-44 border-r p-3 flex flex-col gap-0.5 shrink-0 transition-colors ${t('border-slate-100 bg-slate-50/80', 'border-zinc-900 bg-zinc-950')}`}>
                     <div className="flex items-center gap-2 px-2 py-2 mb-2">
-                        <img src="/images/logoacademiatracket.png" alt="Logo" className={`w-5 h-5 object-contain rounded-md ${isDark ? 'filter invert' : ''}`} />
+                        <img src="/images/logoacademiatracket.png" alt="Logo" className="w-5 h-5 object-contain rounded-md" />
                         <span className={`text-[11px] font-bold ${t('text-slate-900', 'text-white')}`}>AcademiaTrack</span>
                     </div>
                     {[
@@ -396,7 +396,7 @@ const DashboardMockup = ({ isDark, t }: { isDark: boolean, t: (l: string, d: str
                         { label: 'Finances', active: false },
                         { label: 'Enseignants', active: false },
                     ].map((item, i) => (
-                        <div key={i} className={`px-3 py-1.5 rounded-lg text-[11px] font-medium transition-colors ${item.active ? t('bg-emerald-600 text-white font-semibold', 'bg-white text-black font-semibold') : t('text-slate-500', 'text-zinc-500')}`}>
+                        <div key={i} className={`px-3 py-1.5 rounded-lg text-[11px] font-medium transition-colors ${item.active ? t('bg-emerald-600 text-white font-semibold', 'bg-emerald-600 text-white font-semibold') : t('text-slate-500', 'text-zinc-500')}`}>
                             {item.label}
                         </div>
                     ))}

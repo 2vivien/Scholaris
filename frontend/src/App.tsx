@@ -27,6 +27,7 @@ import TeacherClasses    from './pages/teacher/TeacherClasses';
 import TeacherGrades     from './pages/teacher/TeacherGrades';
 import TeacherAttendance from './pages/teacher/TeacherAttendance';
 import TeacherTimetable  from './pages/teacher/TeacherTimetable';
+import ParentDashboard from './pages/parent/ParentDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
@@ -39,6 +40,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/setup-superadmin" element={<SetupSuperAdmin />} />
+          <Route path="/parent" element={<ParentDashboard />} />
 
           {/* Super Admin */}
           <Route element={<ProtectedRoute allowedRoles={['super_admin']} />}>

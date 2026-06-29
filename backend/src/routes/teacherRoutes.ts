@@ -3,12 +3,11 @@ import { authenticateJWT, requireRole } from '../middlewares/authMiddleware';
 import {
     createTeacher,
     getTeachers,
-    getTeacherById,
     updateTeacher,
-    deactivateTeacher,
-    getTeacherCount,
-    getMyProfile,
-} from '../controllers/teacherController';
+    deleteTeacher,
+    getTeacherStats,
+    getMyProfile
+} from '../controllers/teachers';
 
 const router = Router();
 
@@ -21,10 +20,9 @@ router.get('/me', requireRole(['super_admin', 'admin_ecole', 'enseignant']), get
 router.use(requireRole(['super_admin', 'admin_ecole']));
 
 router.get('/', getTeachers);
-router.get('/count', getTeacherCount);
-router.get('/:id', getTeacherById);
+router.get('/count', getTeacherStats);
 router.post('/', createTeacher);
 router.put('/:id', updateTeacher);
-router.patch('/:id/deactivate', deactivateTeacher);
+router.delete('/:id', deleteTeacher);
 
 export default router;

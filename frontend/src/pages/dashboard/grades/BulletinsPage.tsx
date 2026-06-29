@@ -83,6 +83,15 @@ const BulletinsPage = () => {
         setGenerating(false);
     };
 
+    const handleSendToParents = async () => {
+        if (!confirm('Envoyer les bulletins à tous les parents de la classe ?')) return;
+        setGenMsg(''); setError('');
+        try {
+            const res = await api.post('/api/bulletins/send-to-parents', { periode_id, classe_id });
+            setGenMsg(res.data.message);
+        } catch (err: any) { setError('Erreur envoi.'); }
+    };
+
     const moy       = (n: number) => n?.toFixed(2) ?? '—';
     const appColor  = (avg: number) => avg >= 14 ? 'text-emerald-600' : avg >= 10 ? 'text-blue-600' : 'text-red-500';
 
@@ -138,11 +147,17 @@ const BulletinsPage = () => {
 
                 <div className="flex items-center gap-2">
                     {bulletins.length > 0 && (
-                        <button onClick={handleDownloadClass} disabled={dlClass}
-                            className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-all shadow-sm disabled:opacity-70">
-                            {dlClass ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
-                            Toute la classe ({bulletins.length})
-                        </button>
+                        <>
+                            <button onClick={handleDownloadClass} disabled={dlClass}
+                                className="inline-flex items-center gap-2 px-4 py-2.5 bg-slate-900 text-white text-sm font-semibold rounded-xl hover:bg-slate-800 transition-all shadow-sm disabled:opacity-70">
+                                {dlClass ? <Loader2 className="w-4 h-4 animate-spin" /> : <Download className="w-4 h-4" />}
+                                Toute la classe ({bulletins.length})
+                            </button>
+                            <button onClick={handleSendToParents}
+                                className="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-600 text-white text-sm font-semibold rounded-xl hover:bg-blue-700 transition-all shadow-sm">
+                                <Users className="w-4 h-4" /> Envoyer aux parents
+                            </button>
+                        </>
                     )}
                     <button onClick={handleGenerate} disabled={generating}
                         className="inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-xl hover:bg-emerald-700 transition-all shadow-sm disabled:opacity-70">

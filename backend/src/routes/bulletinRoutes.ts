@@ -13,4 +13,8 @@ router.get('/class', getClassBulletins);
 router.get('/student/:inscription_id', getAllStudentBulletins);
 router.get('/:inscription_id/:periode_id', getStudentBulletin);
 
+import { sendBulletins } from '../controllers/bulletins/send';
+
+router.post('/send-to-parents', requireRole(['super_admin', 'admin_ecole']), sendBulletins);
+
 export default router;
