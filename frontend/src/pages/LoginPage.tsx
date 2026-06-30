@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, Mail, Lock, ArrowRight, Loader2, ArrowLeft, AlertCircle } from 'lucide-react';
 import api from '../lib/api';
@@ -23,18 +23,37 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
-    const { login, isAuthenticated, user } = useAuth();
+    const { login, isAuthenticated, user, logout } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    // Redirige dès que isAuthenticated passe à true (après setToken asynchrone)
-    React.useEffect(() => {
-        if (isAuthenticated && user) {
-            const dest = user.role === 'super_admin' ? '/dashboard'
-                       : user.role === 'enseignant'  ? '/prof'
-                       : '/ecole-dashboard';
-            navigate(dest, { replace: true });
-        }
-    }, [isAuthenticated, user]);
+    const handleLogout = () => {
+        logout();
+    };
+
+    if (isAuthenticated && user) {
+        const dest = user.role === 'super_admin' ? '/dashboard'
+                   : user.role === 'enseignant'  ? '/prof'
+                   : user.role === 'parent'      ? '/parent'
+                   : user.role === 'user'        ? '/user'
+                   : '/ecole-dashboard';
+        return (
+            <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 font-sans">
+                <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm max-w-sm w-full text-center space-y-4">
+                    <h2 className="text-lg font-bold text-slate-900">Session active</h2>
+                    <p className="text-xs text-slate-500 font-medium">Vous êtes déjà connecté en tant que <span className="font-bold text-slate-700">{user.email}</span> ({user.role}).</p>
+                    <div className="flex flex-col gap-2 pt-2">
+                        <Link to={dest} className="py-2.5 px-4 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-colors block">
+                            Accéder à mon espace
+                        </Link>
+                        <button onClick={handleLogout} className="py-2.5 px-4 border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors cursor-pointer block w-full">
+                            Se déconnecter / Changer de compte
+                        </button>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,13 +68,13 @@ const LoginPage = () => {
 
             const { token, user: userData } = response.data;
             login(token, userData);
-            // La navigation se fait via le useEffect ci-dessus.
-            // Fallback direct si React Router ne répond pas (bug extension navigateur).
-            setTimeout(() => {
-                if (userData.role === 'super_admin') window.location.href = '/dashboard';
-                else if (userData.role === 'enseignant') window.location.href = '/prof';
-                else window.location.href = '/ecole-dashboard';
-            }, 300);
+            
+            const dest = userData.role === 'super_admin' ? '/dashboard'
+                       : userData.role === 'enseignant'  ? '/prof'
+                       : userData.role === 'parent'      ? '/parent'
+                       : userData.role === 'user'        ? '/user'
+                       : '/ecole-dashboard';
+            navigate(dest, { replace: true });
         } catch (err: any) {
             setError(err.response?.data?.error || 'Une erreur est survenue lors de la connexion.');
             setIsLoading(false);
@@ -63,165 +82,151 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen w-full flex font-sans bg-white text-slate-900 selection:bg-emerald-100 selection:text-emerald-900">
+        <div className="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 bg-slate-950/40 backdrop-blur-md font-sans select-none overflow-y-auto selection:bg-emerald-100 selection:text-emerald-900">
+            <div className="w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex min-h-[500px] border border-slate-200/50">
 
-            {/* Light corporate Left panel - Visual/Brand */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 1 }}
-                className="hidden lg:flex w-[45%] relative overflow-hidden bg-slate-900 flex-col justify-between p-12"
-            >
-                <motion.img
-                    initial={{ scale: 1.1 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 2, ease: "easeOut" }}
-                    src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-                    alt="Élèves en classe"
-                    className="absolute inset-0 w-full h-full object-cover opacity-60"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/10 mix-blend-multiply"></div>
-                <div className="absolute inset-0 bg-emerald-900/20 mix-blend-overlay"></div>
-
+                {/* Left panel - Visual/Brand */}
                 <motion.div
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                    className="hidden lg:flex w-[42%] relative overflow-hidden bg-slate-900 flex-col justify-between p-10"
                 >
+                    <motion.img
+                        initial={{ scale: 1.1 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 2, ease: "easeOut" }}
+                        src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                        alt="Élèves en classe"
+                        className="absolute inset-0 w-full h-full object-cover opacity-50"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/10"></div>
+                    <div className="absolute inset-0 bg-emerald-900/20 mix-blend-overlay"></div>
+
                     <Link to="/" className="flex items-center gap-3 relative z-10 w-max group">
-                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-12 h-12 object-contain rounded-[1.2rem] bg-white p-1 shadow-lg group-hover:scale-105 transition-transform duration-300" />
-                        <span className="font-extrabold text-3xl tracking-tight text-white drop-shadow-md">
+                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-10 h-10 object-contain rounded-xl bg-white p-1 shadow-md group-hover:scale-105 transition-transform" />
+                        <span className="font-extrabold text-2xl tracking-tight text-white">
                             AcademiaTrack<span className="text-emerald-400">.</span>
                         </span>
                     </Link>
-                </motion.div>
 
-                <motion.div
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.4 }}
-                    className="relative z-10 max-w-lg mb-10"
-                >
-                    <div className="inline-block px-3 py-1 mb-6 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-extrabold uppercase tracking-widest shadow-sm">
-                        Espace Sécurisé
+                    <div className="relative z-10 my-auto py-6 space-y-4">
+                        <div className="inline-block px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[9px] font-black uppercase tracking-widest">
+                            Espace Sécurisé
+                        </div>
+                        <h1 className="text-2xl font-black text-white leading-tight uppercase">
+                            L'excellence académique <br />
+                            <span className="text-emerald-400">à portée de clic.</span>
+                        </h1>
+                        <p className="text-slate-350 text-xs font-semibold leading-relaxed">
+                            Identifiez-vous pour administrer les notes, la comptabilité et le suivi rigoureux de vos apprenants.
+                        </p>
                     </div>
-                    <h1 className="text-4xl lg:text-[2.75rem] font-extrabold text-white leading-[1.1] mb-6 drop-shadow-lg tracking-tight">
-                        L'excellence académique à portée de clic.
-                    </h1>
-                    <p className="text-slate-200/90 text-lg font-medium leading-relaxed drop-shadow-md max-w-md">
-                        Identifiez-vous pour administrer les notes, la comptabilité et le suivi rigoureux de vos apprenants.
-                    </p>
                 </motion.div>
-            </motion.div>
 
-            {/* Right panel - Auth Form */}
-            <div className="w-full lg:w-[55%] flex flex-col justify-center p-8 sm:p-16 lg:p-24 relative bg-white">
+                {/* Right panel - Auth Form */}
+                <div className="w-full lg:w-[58%] flex flex-col justify-center p-8 sm:p-12 relative bg-white">
+                    <Link to="/" className="absolute top-6 right-8 flex items-center text-xs font-bold text-slate-400 hover:text-slate-700 transition-colors">
+                        <ArrowLeft className="w-3.5 h-3.5 mr-1" /> Retour
+                    </Link>
 
-                <Link to="/" className="absolute top-8 left-8 sm:left-auto sm:right-12 flex items-center text-sm font-bold text-slate-400 hover:text-slate-800 transition-colors">
-                    <ArrowLeft className="w-4 h-4 mr-2" /> Retour au site
-                </Link>
-
-                <div className="w-full max-w-[400px] mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6 }}
-                        className="mb-12"
-                    >
-                        <h2 className="text-[2.5rem] font-extrabold text-slate-900 mb-3 tracking-tight">Connexion</h2>
-                        <p className="text-slate-500 font-medium text-[17px]">Entrez vos identifiants pour accéder au portail.</p>
-                    </motion.div>
-
-                    <AnimatePresence>
-                        {error && (
-                            <motion.div
-                                initial={{ opacity: 0, height: 0 }}
-                                animate={{ opacity: 1, height: 'auto' }}
-                                exit={{ opacity: 0, height: 0 }}
-                                className="mb-6 px-4 py-3 bg-red-50 border border-red-100 text-red-600 rounded-xl text-sm font-bold flex items-center gap-2"
-                            >
-                                <AlertCircle className="w-4 h-4" /> {error}
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-
-                    <motion.form
-                        variants={staggerContainer}
-                        initial="hidden"
-                        animate="visible"
-                        onSubmit={handleSubmit}
-                        className="space-y-6"
-                    >
-                        <div className="space-y-5">
-
-                            <motion.div variants={fadeInUp} className="group">
-                                <label className="block text-sm font-extrabold text-slate-700 mb-2">
-                                    Adresse e-mail
-                                </label>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
-                                        <Mail className="h-5 w-5" />
-                                    </div>
-                                    <input
-                                        type="email"
-                                        required
-                                        className="block w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 focus:bg-white transition-all font-bold text-base shadow-sm"
-                                        placeholder="nom@etablissement.cm"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                            </motion.div>
-
-                            <motion.div variants={fadeInUp} className="group">
-                                <div className="flex items-center justify-between mb-2">
-                                    <label className="block text-sm font-extrabold text-slate-700">
-                                        Mot de passe
-                                    </label>
-                                    <Link to="/forgot-password" className="text-sm font-bold text-emerald-600 hover:text-emerald-700 transition-colors">
-                                        Oublié ?
-                                    </Link>
-                                </div>
-                                <div className="relative">
-                                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
-                                        <Lock className="h-5 w-5" />
-                                    </div>
-                                    <input
-                                        type="password"
-                                        required
-                                        className="block w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 focus:bg-white transition-all font-bold text-base shadow-sm"
-                                        placeholder="••••••••"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                    />
-                                </div>
-                            </motion.div>
+                    <div className="w-full max-w-[340px] mx-auto space-y-5">
+                        <div className="text-left space-y-1">
+                            <h2 className="text-xl font-black text-slate-900 tracking-tight uppercase">Connexion</h2>
+                            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wide">Accéder à votre espace</p>
                         </div>
 
-                        <motion.button
-                            variants={fadeInUp}
-                            type="submit"
-                            disabled={isLoading}
-                            className="mt-6 w-full flex justify-center items-center py-4 px-4 rounded-xl text-base font-extrabold text-white bg-slate-900 hover:bg-slate-800 shadow-lg shadow-slate-900/10 focus:outline-none focus:ring-4 focus:ring-slate-900/20 transition-all active:scale-[0.98] disabled:opacity-70 group"
-                        >
-                            <span className="flex items-center gap-2">
+                        <AnimatePresence>
+                            {error && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="px-3.5 py-2 bg-red-50 border border-red-100 text-red-650 rounded-xl text-[10px] font-bold flex items-center gap-2"
+                                >
+                                    <AlertCircle className="w-4 h-4 text-red-600" /> {error}
+                                </motion.div>
+                            )}
+                            {location.state?.registered && (
+                                <motion.div
+                                    initial={{ opacity: 0, height: 0 }}
+                                    animate={{ opacity: 1, height: 'auto' }}
+                                    exit={{ opacity: 0, height: 0 }}
+                                    className="px-3.5 py-2 bg-emerald-50 border border-emerald-100 text-emerald-600 rounded-xl text-[10px] font-bold flex items-center gap-2"
+                                >
+                                    <AlertCircle className="w-4 h-4 text-emerald-600" />
+                                    <span>{location.state?.message || 'Inscription réussie ! Veuillez vous connecter.'}</span>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="space-y-3.5">
+                                <div className="space-y-1 text-left">
+                                    <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                        Adresse e-mail
+                                    </label>
+                                    <div className="relative group">
+                                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
+                                            <Mail className="h-4.5 w-4.5" />
+                                        </div>
+                                        <input
+                                            type="email"
+                                            required
+                                            className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 focus:bg-white transition-all font-semibold text-xs shadow-2xs"
+                                            placeholder="nom@etablissement.cm"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-1 text-left">
+                                    <div className="flex items-center justify-between">
+                                        <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                                            Mot de passe
+                                        </label>
+                                        <Link to="/forgot-password" className="text-[10px] font-bold text-emerald-650 hover:text-emerald-700 transition-colors">
+                                            Oublié ?
+                                        </Link>
+                                    </div>
+                                    <div className="relative group">
+                                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-emerald-600 transition-colors">
+                                            <Lock className="h-4.5 w-4.5" />
+                                        </div>
+                                        <input
+                                            type="password"
+                                            required
+                                            className="block w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 focus:bg-white transition-all font-semibold text-xs shadow-2xs"
+                                            placeholder="••••••••"
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                disabled={isLoading}
+                                className="mt-4 w-full flex justify-center items-center py-3 px-4 rounded-xl text-xs font-black text-white bg-slate-900 hover:bg-slate-800 shadow-md transition-all active:scale-[0.98] disabled:opacity-70 group cursor-pointer"
+                            >
                                 {isLoading ? (
-                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    <Loader2 className="w-4 h-4 animate-spin text-white" />
                                 ) : (
-                                    <>Accéder à l'espace <ArrowRight className="w-5 h-5 ml-1 group-hover:translate-x-1 transition-transform" /></>
+                                    <>Accéder à l'espace <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" /></>
                                 )}
-                            </span>
-                        </motion.button>
+                            </button>
 
-                        <motion.div variants={fadeInUp} className="text-center mt-12 bg-slate-50 p-6 rounded-2xl border border-slate-100">
-                            <p className="text-slate-500 text-sm font-medium">
-                                Accès réservé aux administrateurs.<br />
-                                Contactez votre établissement pour obtenir vos identifiants.
-                            </p>
-                        </motion.div>
-                    </motion.form>
+                            <div className="text-center mt-6 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                                <p className="text-slate-450 text-[10px] font-semibold leading-relaxed">
+                                    Accès réservé aux utilisateurs et administrateurs.<br />
+                                    Pas encore de compte ? <Link to="/register" className="font-extrabold text-emerald-650 hover:text-emerald-700 transition-all">Créer un compte</Link>
+                                </p>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
             </div>
         </div>
     );

@@ -1,37 +1,48 @@
-import { useState, useEffect, useCallback } from 'react';
-import api from '../../../lib/api';
+import { useState, useEffect } from 'react';
+import { forumService } from '../services/forumService';
+import type { Topic, Reponse } from '../types/forum';
 
 export function useTopicDetail(topicId: string) {
-    const [topic, setTopic] = useState<any>(null);
-    const [reponses, setReponses] = useState<any[]>([]);
+    const [topic, setTopic] = useState<Topic | undefined>(undefined);
+    const [reponses, setReponses] = useState<Reponse[]>([]);
     const [loading, setLoading] = useState(true);
     const [sending, setSending] = useState(false);
 
-    const fetchDetail = useCallback(async () => {
-        if (!topicId) return;
+    const load = async () => {
         setLoading(true);
         try {
-            const [tRes, rRes] = await Promise.all([
-                api.get(`/api/forum/topics/${topicId}`),
-                api.get(`/api/forum/topics/${topicId}/reponses`)
+            const [tData, rData] = await Promise.all([
+                forumService.getTopic(topicId),
+                forumService.getReplies(topicId)
             ]);
-            setTopic(tRes.data);
-            setReponses(rRes.data);
-        } catch (err) { console.error(err); }
-        setLoading(false);
-    }, [topicId]);
+            setTopic(tData);
+            setReponses(rData);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
 
-    useEffect(() => { fetchDetail(); }, [fetchDetail]);
+    useEffect(() => {
+        if (topicId) load();
+    }, [topicId]);
 
     const postReply = async (corps: string) => {
         if (!corps.trim()) return;
         setSending(true);
         try {
-            await api.post(`/api/forum/topics/${topicId}/reponses`, { corps });
-            await fetchDetail();
-        } catch (err) { console.error(err); }
-        setSending(false);
+            await forumService.addReply(topicId, corps);
+            const rData = await forumService.getReplies(topicId);
+            setReponses(rData);
+            const tData = await forumService.getTopic(topicId);
+            setTopic(tData);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setSending(false);
+        }
     };
 
-    return { topic, reponses, loading, sending, postReply, refresh: fetchDetail };
+    return { topic, reponses, loading, sending, postReply };
 }

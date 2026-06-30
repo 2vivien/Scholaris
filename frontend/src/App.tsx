@@ -33,6 +33,7 @@ import CreateTopicPage from './pages/forum/CreateTopicPage';
 import TopicDetailPage from './pages/forum/TopicDetailPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
@@ -41,15 +42,22 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/setup-superadmin" element={<SetupSuperAdmin />} />
-          <Route path="/parent" element={<ParentDashboard />} />
-
-          {/* Forum Communautaire (tous rôles autorisés) */}
-          <Route element={<ProtectedRoute allowedRoles={['parent', 'enseignant', 'admin_ecole']} />}>
-            <Route path="/forum" element={<ForumPage />} />
-            <Route path="/forum/create" element={<CreateTopicPage />} />
-            <Route path="/forum/topics/:id" element={<TopicDetailPage />} />
+          
+          {/* Portail Parent / Simple User */}
+          <Route element={<ProtectedRoute allowedRoles={['parent', 'user']} />}>
+            <Route path="/parent" element={<ParentDashboard />}>
+              <Route path="feed" element={<ForumPage />} />
+              <Route path="feed/create" element={<CreateTopicPage />} />
+              <Route path="feed/topics/:id" element={<TopicDetailPage />} />
+            </Route>
+            <Route path="/user" element={<ParentDashboard />}>
+              <Route path="feed" element={<ForumPage />} />
+              <Route path="feed/create" element={<CreateTopicPage />} />
+              <Route path="feed/topics/:id" element={<TopicDetailPage />} />
+            </Route>
           </Route>
 
           {/* Super Admin */}
@@ -76,6 +84,9 @@ function App() {
               <Route path="affectations" element={<AffectationsPage />} />
               <Route path="calendar"     element={<CalendarPage />} />
               <Route path="reports"      element={<ReportsPage />} />
+              <Route path="feed" element={<ForumPage />} />
+              <Route path="feed/create" element={<CreateTopicPage />} />
+              <Route path="feed/topics/:id" element={<TopicDetailPage />} />
             </Route>
           </Route>
 
@@ -88,6 +99,9 @@ function App() {
               <Route path="grades/entry" element={<GradeEntryPage />} />
               <Route path="attendance"  element={<TeacherAttendance />} />
               <Route path="timetable"   element={<TeacherTimetable />} />
+              <Route path="feed" element={<ForumPage />} />
+              <Route path="feed/create" element={<CreateTopicPage />} />
+              <Route path="feed/topics/:id" element={<TopicDetailPage />} />
             </Route>
           </Route>
         </Routes>

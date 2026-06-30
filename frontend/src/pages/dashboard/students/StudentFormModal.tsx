@@ -20,6 +20,51 @@ export default function StudentFormModal({ isModalOpen, setIsModalOpen, editTarg
                             <div><label className="block text-xs font-semibold mb-1">Prénom</label><input required value={form.prenom} onChange={e => setForm({...form, prenom: e.target.value})} className="w-full px-3 py-2 border rounded-xl" /></div>
                         </div>
 
+                        <div className="grid grid-cols-2 gap-4">
+                            <div><label className="block text-xs font-semibold mb-1">Date de naissance</label><input type="date" required value={form.date_naissance} onChange={e => setForm({...form, date_naissance: e.target.value})} className="w-full px-3 py-2 border rounded-xl" /></div>
+                            <div><label className="block text-xs font-semibold mb-1">Lieu de naissance</label><input required value={form.lieu_naissance} onChange={e => setForm({...form, lieu_naissance: e.target.value})} className="w-full px-3 py-2 border rounded-xl" placeholder="Douala" /></div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-semibold mb-1">Sexe</label>
+                                <select required value={form.sexe} onChange={e => setForm({...form, sexe: e.target.value})} className="w-full px-3 py-2 border rounded-xl bg-white">
+                                    <option value="">Sélectionner...</option>
+                                    <option value="M">Masculin (M)</option>
+                                    <option value="F">Féminin (F)</option>
+                                </select>
+                            </div>
+                            <div><label className="block text-xs font-semibold mb-1">Nationalité</label><input required value={form.nationalite} onChange={e => setForm({...form, nationalite: e.target.value})} className="w-full px-3 py-2 border rounded-xl" /></div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4">
+                            <div>
+                                <label className="block text-xs font-semibold mb-1">Classe</label>
+                                <select required value={form.classe_id} onChange={e => setForm({...form, classe_id: e.target.value})} className="w-full px-3 py-2 border rounded-xl bg-white">
+                                    <option value="">Sélectionner une classe...</option>
+                                    {classes && classes.map((c: any) => (
+                                        <option key={c.id} value={c.id}>{c.nom} ({c.niveau})</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="flex flex-col justify-end">
+                                <label className="block text-xs font-semibold mb-1">Photo de l'élève (facultatif)</label>
+                                <div className="flex items-center gap-2">
+                                    {form.photo_url ? (
+                                        <div className="relative w-10 h-10 rounded-lg overflow-hidden border">
+                                            <img src={form.photo_url} alt="Aperçu" className="w-full h-full object-cover" />
+                                            <button type="button" onClick={() => setForm({...form, photo_url: ''})} className="absolute inset-0 bg-black/50 text-white flex items-center justify-center text-[10px] font-bold opacity-0 hover:opacity-100 transition-opacity">Retirer</button>
+                                        </div>
+                                    ) : null}
+                                    <label className="cursor-pointer flex items-center gap-1.5 px-3 py-2 border border-dashed rounded-xl text-xs text-slate-500 hover:bg-slate-50">
+                                        <Upload className="w-3.5 h-3.5" />
+                                        {photoUploading ? 'Téléchargement...' : 'Choisir une photo'}
+                                        <input type="file" accept="image/*" className="hidden" onChange={e => handlePhotoFile(e.target.files?.[0])} disabled={photoUploading} />
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
                         {!editTarget && (
                             <div className="grid grid-cols-2 gap-4 bg-emerald-50 p-4 rounded-xl">
                                 <div className="col-span-2"><h4 className="text-sm font-bold text-emerald-800">Compte Parent</h4><p className="text-xs text-emerald-600 mb-2">Un email sera envoyé avec les accès.</p></div>

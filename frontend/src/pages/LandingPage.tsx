@@ -77,7 +77,7 @@ const LandingPage = () => {
                             Connexion
                         </Link>
                         
-                        <Link to="/login" className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
+                        <Link to="/register" className={`inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-all shadow-md ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
                             Commencer <ArrowRight className="w-3.5 h-3.5" />
                         </Link>
                     </div>
@@ -99,7 +99,7 @@ const LandingPage = () => {
                         </p>
 
                         <div className="flex flex-wrap gap-4 mb-10">
-                            <Link to="/login" className={`inline-flex items-center gap-2 px-6 py-3.5 text-xs font-black uppercase tracking-widest rounded-lg transition-all shadow-xl ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
+                            <Link to="/register" className={`inline-flex items-center gap-2 px-6 py-3.5 text-xs font-black uppercase tracking-widest rounded-lg transition-all shadow-xl ${t('bg-emerald-600 text-white hover:bg-emerald-700 shadow-emerald-600/20', 'bg-emerald-600 text-white hover:bg-emerald-500 shadow-emerald-600/20')}`}>
                                 Commencer le parcours <ArrowRight className="w-4 h-4" />
                             </Link>
                             <Link to="/login" className={`inline-flex items-center gap-2 px-6 py-3.5 text-xs font-black uppercase tracking-widest rounded-lg border transition-all ${t('bg-white text-slate-900 border-slate-200 hover:border-slate-300', 'bg-transparent text-white border-zinc-800 hover:border-zinc-600')}`}>

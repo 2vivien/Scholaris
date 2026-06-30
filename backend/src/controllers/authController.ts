@@ -19,82 +19,56 @@ const generateOTP = () => {
 // Crée un nouvel établissement + compte admin_ecole (appelé par le Super Admin)
 export const register = async (req: Request, res: Response) => {
     try {
-        const { nom_tenant, sous_domaine, pays, email, mot_de_passe } = req.body;
-
-        if (!nom_tenant || !sous_domaine || !email || !mot_de_passe) {
-            return res.status(400).json({ error: 'Tous les champs obligatoires doivent être remplis.' });
-        }
-
-        const existingTenant = await prisma.tenants.findUnique({ where: { sous_domaine } });
-        if (existingTenant) {
-            return res.status(400).json({ error: 'Ce sous-domaine est déjà indisponible.' });
-        }
-
+        const { nom_tenant, sous_domaine, pays, email, mot_de_passe, sexe, age } = req.body;
+        if (!email || !mot_de_passe) return res.status(400).json({ error: 'Email et mot de passe requis.' });
+        const exists = await prisma.utilisateurs.findFirst({ where: { email } });
+        if (exists) return res.status(400).json({ error: 'Cet email est déjà utilisé.' });
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(mot_de_passe, salt);
 
+        if (sexe || age) {
+            let tenant = await prisma.tenants.findUnique({ where: { sous_domaine: 'public' } });
+            if (!tenant) {
+                tenant = await prisma.tenants.create({
+                    data: { nom: 'Scholaris Public', sous_domaine: 'public', pays: 'CM', fuseau_horaire: 'Africa/Douala', plan_abonnement: 'gratuit', statut: 'actif' }
+                });
+            }
+            const adjs = ['cool', 'zen', 'gentil', 'brave', 'malin', 'fort', 'calme', 'mignon', 'sympa', 'joyeux', 'rapide', 'actif'];
+            const username = `user_${adjs[Math.floor(Math.random() * adjs.length)]}_${Math.floor(Math.random() * 90) + 10}`;
+            const result = await prisma.$transaction(async (tx: any) => {
+                const u = await tx.utilisateurs.create({ data: { tenant_id: tenant.id, email, mot_de_passe: hashedPassword, role: 'user' } });
+                const p = await tx.profils_parents.create({
+                    data: { utilisateur_id: u.id, nom: 'Utilisateur', prenom: username, username, photo_url: `https://api.dicebear.com/7.x/pixel-art/svg?seed=${username}`, sexe, age: age ? parseInt(age.toString()) : null }
+                });
+                return { u, p };
+            });
+            return res.status(201).json({ message: 'Utilisateur créé avec succès.', user: result.u, profile: result.p });
+        }
+
+        if (!nom_tenant || !sous_domaine) return res.status(400).json({ error: 'Champs obligatoires manquants.' });
+        const existingTenant = await prisma.tenants.findUnique({ where: { sous_domaine } });
+        if (existingTenant) return res.status(400).json({ error: 'Ce sous-domaine est déjà pris.' });
+
         const result = await prisma.$transaction(async (tx: any) => {
             const newTenant = await tx.tenants.create({
-                data: {
-                    nom: nom_tenant,
-                    sous_domaine,
-                    pays: pays || 'CM',
-                    fuseau_horaire: 'Africa/Douala',
-                    plan_abonnement: 'gratuit',
-                    statut: 'actif'
-                }
+                data: { nom: nom_tenant, sous_domaine, pays: pays || 'CM', fuseau_horaire: 'Africa/Douala', plan_abonnement: 'gratuit', statut: 'actif' }
             });
-
             const code = sous_domaine.toUpperCase().replace(/[^A-Z0-9]/g, '').substring(0, 10);
-            const newEcole = await tx.ecoles.create({
-                data: {
-                    tenant_id: newTenant.id,
-                    nom: nom_tenant,
-                    code,
-                    systeme_notation: 'sur_20',
-                }
-            });
-
-            // Année scolaire active par défaut (rentrée en septembre, calendrier camerounais).
+            const newEcole = await tx.ecoles.create({ data: { tenant_id: newTenant.id, nom: nom_tenant, code, systeme_notation: 'sur_20' } });
             const now = new Date();
             const startYear = now.getMonth() >= 7 ? now.getFullYear() : now.getFullYear() - 1;
             const newYear = await tx.annees_scolaires.create({
-                data: {
-                    ecole_id:   newEcole.id,
-                    libelle:    `${startYear}-${startYear + 1}`,
-                    date_debut: new Date(`${startYear}-09-01`),
-                    date_fin:   new Date(`${startYear + 1}-07-15`),
-                    est_active: true,
-                }
+                data: { ecole_id: newEcole.id, libelle: `${startYear}-${startYear + 1}`, date_debut: new Date(`${startYear}-09-01`), date_fin: new Date(`${startYear + 1}-07-15`), est_active: true }
             });
-
-            // Lier l'année active à l'école (évite les 404 « École/année introuvable »).
-            await tx.ecoles.update({
-                where: { id: newEcole.id },
-                data:  { annee_active_id: newYear.id },
-            });
-
-            const newAdmin = await tx.utilisateurs.create({
-                data: {
-                    tenant_id: newTenant.id,
-                    email,
-                    mot_de_passe: hashedPassword,
-                    role: 'admin_ecole'
-                }
-            });
-
+            await tx.ecoles.update({ where: { id: newEcole.id }, data: { annee_active_id: newYear.id } });
+            const newAdmin = await tx.utilisateurs.create({ data: { tenant_id: newTenant.id, email, mot_de_passe: hashedPassword, role: 'admin_ecole' } });
             return { newTenant, newEcole, newAdmin, newYear };
         });
 
-        res.status(201).json({
-            message: 'Établissement créé avec succès.',
-            tenant: result.newTenant,
-            ecole: { ...result.newEcole, annee_active_id: result.newYear.id },
-            annee_active: result.newYear,
-        });
+        res.status(201).json({ message: 'Établissement créé avec succès.', tenant: result.newTenant, ecole: { ...result.newEcole, annee_active_id: result.newYear.id }, annee_active: result.newYear });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Erreur lors de la création de l\'établissement.' });
+        res.status(500).json({ error: 'Erreur lors de l\'inscription.' });
     }
 };
 

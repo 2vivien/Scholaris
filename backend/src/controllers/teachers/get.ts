@@ -32,7 +32,7 @@ export const getMyProfile = async (req: Request, res: Response) => {
     try {
         const profil = await prisma.profils_enseignants.findFirst({
             where: { utilisateur_id: userId },
-            select: { id: true, matricule: true, nom: true, prenom: true, specialite: true, telephone: true, photo_url: true, ecole_id: true },
+            select: { id: true, matricule: true, nom: true, prenom: true, specialite: true, telephone: true, photo_url: true, ecole_id: true, age: true, sexe: true },
         });
         if (!profil) return res.status(404).json({ error: 'Aucun profil.' });
         const ecole = await prisma.ecoles.findFirst({
@@ -44,6 +44,10 @@ export const getMyProfile = async (req: Request, res: Response) => {
             include: { matiere: { select: { id: true, nom: true, code: true, coefficient: true } }, classe: { select: { id: true, nom: true, niveau: true, annee_id: true } } },
             orderBy: [{ classe: { nom: 'asc' } }, { matiere: { nom: 'asc' } }],
         });
-        res.json({ profil, ecole: ecole ? { id: ecole.id, nom: ecole.nom } : null, annee_active: ecole?.annee_active ?? null, affectations });
+        const parent = await prisma.profils_parents.findFirst({ where: { utilisateur_id: userId } });
+        const childrenCount = parent ? await prisma.inscriptions.count({
+            where: { statut: 'actif', classe: { ecole: { tenant_id } }, eleve: { parents: { some: { parent_id: parent.id } } } }
+        }) : 0;
+        res.json({ profil, ecole: ecole ? { id: ecole.id, nom: ecole.nom } : null, annee_active: ecole?.annee_active ?? null, affectations, has_parent_view: childrenCount > 0 });
     } catch (error) { res.status(500).json({ error: 'Erreur.' }); }
 };

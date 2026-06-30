@@ -3,7 +3,7 @@ import { authenticateJWT, requireRole } from '../middlewares/authMiddleware';
 import {
     getSchoolSettings, updateSchoolSettings, setActiveYear,
     getProfile, updateProfile, changePassword,
-} from '../controllers/settingsController';
+} from '../controllers/settings';
 
 const router = Router();
 router.use(authenticateJWT);

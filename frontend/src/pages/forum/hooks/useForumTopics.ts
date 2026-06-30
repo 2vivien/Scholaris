@@ -1,31 +1,57 @@
-import { useState, useEffect, useCallback } from 'react';
-import api from '../../../lib/api';
+import { useState, useEffect } from 'react';
+import { forumService } from '../services/forumService';
+import type { Topic } from '../types/forum';
 
-export function useForumTopics(search = '', tag = '') {
-    const [topics, setTopics] = useState<any[]>([]);
+export function useForumTopics(search = '', tag = '', thematique = '', sortBy = 'best', dateRange = '') {
+    const [topics, setTopics] = useState<Topic[]>([]);
     const [loading, setLoading] = useState(true);
+    const [likedIds, setLikedIds] = useState<string[]>(() => {
+        try {
+            return JSON.parse(localStorage.getItem('forum_liked_ids') || '[]');
+        } catch { return []; }
+    });
 
-    const fetchTopics = useCallback(async () => {
+    const load = async () => {
         setLoading(true);
         try {
-            const res = await api.get('/api/forum/topics', { params: { search, tag } });
-            setTopics(res.data);
-        } catch (err) { console.error(err); }
-        setLoading(false);
-    }, [search, tag]);
-
-    useEffect(() => { fetchTopics(); }, [fetchTopics]);
-
-    const toggleLike = async (id: string, isLiked: boolean) => {
-        try {
-            if (isLiked) {
-                await api.delete(`/api/forum/topics/${id}/reaction`);
-            } else {
-                await api.post(`/api/forum/topics/${id}/reaction`);
-            }
-            fetchTopics();
-        } catch (err) { console.error(err); }
+            const data = await forumService.getTopics(search, tag, thematique, sortBy, dateRange);
+            setTopics(data);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    return { topics, loading, toggleLike, refresh: fetchTopics };
+    useEffect(() => {
+        load();
+    }, [search, tag, thematique, sortBy, dateRange]);
+
+    useEffect(() => {
+        localStorage.setItem('forum_liked_ids', JSON.stringify(likedIds));
+    }, [likedIds]);
+
+    const toggleLike = async (id: string) => {
+        const hasLiked = likedIds.includes(id);
+        try {
+            await forumService.toggleLike(id, hasLiked);
+            setLikedIds(prev => hasLiked ? prev.filter(x => x !== id) : [...prev, id]);
+            setTopics(prev => prev.map(t => {
+                if (t.id === id) {
+                    return {
+                        ...t,
+                        _count: {
+                            ...t._count,
+                            reactions: Math.max(0, t._count.reactions + (hasLiked ? -1 : 1))
+                        }
+                    };
+                }
+                return t;
+            }));
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    return { topics, loading, toggleLike, likedIds };
 }

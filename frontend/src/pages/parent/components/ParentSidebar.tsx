@@ -1,34 +1,51 @@
-import { Home, Settings, LogOut } from 'lucide-react';
+import { useState } from 'react';
+import { Home, Settings, LogOut, MessageSquare, BookOpen } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
+import { IconLayoutSidebarLeftCollapse, IconLayoutSidebarLeftExpand } from '@tabler/icons-react';
+import SidebarLink from './SidebarLink';
+import ParentProfileSection from './ParentProfileSection';
 
-export default function ParentSidebar({ logout, profile }: { logout: () => void; profile: any }) {
+interface ParentSidebarProps {
+    logout: () => void;
+    profile: any;
+    activeTab?: string;
+    setActiveTab?: (tab: string) => void;
+}
+
+export default function ParentSidebar({ logout, profile, activeTab, setActiveTab }: ParentSidebarProps) {
+    const location = useLocation();
+    const isUserMode = location.pathname.startsWith('/user');
+    const isFeed = location.pathname.includes('/feed');
+    const isDashboard = (location.pathname === '/parent' || location.pathname === '/user') && activeTab !== 'settings';
+
+    const [isCollapsed, setIsCollapsed] = useState(() => localStorage.getItem('sidebar_collapsed_parent') === 'true');
+    const toggleSidebar = () => {
+        setIsCollapsed(!isCollapsed);
+        localStorage.setItem('sidebar_collapsed_parent', String(!isCollapsed));
+    };
+
     return (
-        <aside className="w-64 bg-white border-r border-slate-200 hidden md:flex flex-col">
-            <div className="p-6 flex items-center gap-3">
-                <img src="/images/logoacademiatracket.png" alt="Logo" className="w-8 h-8 rounded" />
-                <h1 className="font-bold text-lg text-slate-900">Espace Parent</h1>
+        <aside className={`bg-white border-r border-slate-200 hidden md:flex flex-col relative transition-all duration-300 ${isCollapsed ? 'w-16' : 'w-64'} no-scrollbar font-sans`}>
+            <div className="p-4 flex items-center gap-3 border-b border-slate-100 shrink-0">
+                <img src="/images/logoacademiatracket.png" alt="Logo" className="w-8 h-8 rounded shrink-0" />
+                {!isCollapsed && <h1 className="font-bold text-lg text-slate-900">Scholaris</h1>}
             </div>
-            <nav className="flex-1 px-4 space-y-2">
-                <button className="w-full flex items-center gap-3 px-4 py-3 bg-emerald-50 text-emerald-700 rounded-xl text-sm font-semibold">
-                    <Home className="w-4 h-4" /> Vue d'ensemble
-                </button>
-                <button className="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-slate-900 hover:bg-slate-50 rounded-xl text-sm font-semibold transition-colors">
-                    <Settings className="w-4 h-4" /> Paramètres
-                </button>
+            <nav className="flex-1 px-3 py-4 space-y-2 no-scrollbar overflow-y-auto">
+                <SidebarLink to={isUserMode ? "/user/feed" : "/parent/feed"} active={isFeed} label="Feed" icon={MessageSquare} isCollapsed={isCollapsed} />
+                {profile?.has_teacher_view && <SidebarLink to="/prof" active={false} label="Espace Enseignant" icon={BookOpen} isCollapsed={isCollapsed} />}
+                {!isUserMode && <SidebarLink to="/parent" onClick={() => setActiveTab?.('grades')} active={isDashboard} label="Vue d'ensemble" icon={Home} isCollapsed={isCollapsed} />}
+                <SidebarLink to={isFeed ? (isUserMode ? '/user' : '/parent') : '#'} onClick={() => { setActiveTab?.('settings'); }} active={!isFeed && activeTab === 'settings'} label="Paramètres" icon={Settings} isCollapsed={isCollapsed} />
             </nav>
-            {profile && (
-                <div className="p-4 border-t border-slate-100 flex items-center gap-3">
-                    <img src={profile.photo_url || '/images/default_avatar.png'} alt="Avatar" className="w-9 h-9 rounded-full bg-slate-100 object-cover" />
-                    <div className="min-w-0 flex-1">
-                        <p className="text-xs font-bold text-slate-800 truncate">{profile.username}</p>
-                        <p className="text-[10px] text-slate-400 truncate">{profile.nom}</p>
-                    </div>
-                </div>
-            )}
+            <ParentProfileSection isCollapsed={isCollapsed} profile={profile} />
             <div className="p-4 border-t border-slate-100">
-                <button onClick={logout} className="w-full flex items-center gap-3 px-4 py-3 text-slate-500 hover:text-red-500 hover:bg-red-50 rounded-xl text-sm font-semibold transition-colors">
-                    <LogOut className="w-4 h-4" /> Déconnexion
+                <button onClick={logout} className={`w-full flex items-center gap-3 px-3 py-3 text-slate-500 hover:text-red-500 hover:bg-red-55 rounded-xl text-sm font-semibold transition-colors cursor-pointer ${isCollapsed ? 'justify-center' : ''}`} title={isCollapsed ? 'Déconnexion' : ''}>
+                    <LogOut className="w-4 h-4 shrink-0" />
+                    {!isCollapsed && <span>Déconnexion</span>}
                 </button>
             </div>
+            <button onClick={toggleSidebar} className="absolute -right-3 top-4 w-6 h-6 rounded-full bg-white border border-slate-200 shadow-md hover:bg-slate-55 transition-all z-50 flex items-center justify-center text-slate-500 hover:text-slate-900 hidden md:flex" title={isCollapsed ? "Agrandir" : "Réduire"}>
+                {isCollapsed ? <IconLayoutSidebarLeftExpand className="w-3.5 h-3.5" /> : <IconLayoutSidebarLeftCollapse className="w-3.5 h-3.5" />}
+            </button>
         </aside>
     );
 }

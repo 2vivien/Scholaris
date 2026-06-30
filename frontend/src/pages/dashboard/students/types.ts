@@ -6,6 +6,8 @@ export interface Student {
     sexe: string | null;
     statut: string;
     date_naissance: string;
+    lieu_naissance?: string | null;
+    nationalite?: string | null;
     photo_url?: string | null;
     inscriptions: {
         id: string;

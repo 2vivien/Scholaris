@@ -1,0 +1,22 @@
+[
+    { "id": 1, "nom": "Études & Apprentissage" },
+    { "id": 2, "nom": "Vie Familiale & Éducation à la Maison" },
+    { "id": 3, "nom": "Carrière & Développement Professionnel" },
+    { "id": 4, "nom": "Bien-être & Santé Mentale" },
+    { "id": 5, "nom": "Langues & Communication" },
+    { "id": 6, "nom": "Sciences & Découverte du Monde" },
+    { "id": 7, "nom": "Arts & Créativité" },
+    { "id": 8, "nom": "Littérature & Lecture" },
+    { "id": 9, "nom": "Sport & Activité Physique" },
+    { "id": 10, "nom": "Vie Scolaire & Vie de Classe" },
+    { "id": 11, "nom": "Numérique & Éducation" },
+    { "id": 12, "nom": "Orientation & Parcours Scolaire" },
+    { "id": 13, "nom": "Évaluations & Certifications" },
+    { "id": 14, "nom": "Inclusion & Diversité" },
+    { "id": 15, "nom": "Citoyenneté & Engagement" },
+    { "id": 16, "nom": "Équipement & Ressources" },
+    { "id": 17, "nom": "Actualités & Annonces" },
+    { "id": 18, "nom": "Incidents & Sécurité Scolaire" },
+    { "id": 19, "nom": "Alimentation & Mode de Vie" },
+    { "id": 20, "nom": "Inspirations & Témoignages" }
+]

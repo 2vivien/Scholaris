@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { login, register, setupSuperAdmin, requestPasswordReset, resetPasswordWithOTP } from '../controllers/authController';
-import { getEtablissementsDisponibles } from '../controllers/auth/mySchools';
+import { login, register, setupSuperAdmin, requestPasswordReset, resetPasswordWithOTP, getEtablissementsDisponibles, verifyOtp, switchSchool } from '../controllers/auth';
 import { authenticateJWT } from '../middlewares/authMiddleware';
 
 const router = Router();
 
 // Création d'un établissement + admin_ecole (appelé par le Super Admin connecté)
 router.post('/register', register);
+router.post('/verify-otp', verifyOtp);
 
 // Configuration initiale de la plateforme — crée le Super Admin (une seule fois)
 router.post('/setup', setupSuperAdmin);
@@ -22,5 +22,6 @@ router.post('/password/reset', resetPasswordWithOTP);
 
 // Liste des écoles disponibles
 router.get('/etablissements', authenticateJWT, getEtablissementsDisponibles);
+router.post('/switch-school', authenticateJWT, switchSchool);
 
 export default router;

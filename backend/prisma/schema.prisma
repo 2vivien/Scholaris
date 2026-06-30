@@ -98,6 +98,8 @@ model utilisateurs {
   mot_de_passe       String?   @db.VarChar
   otp_code           String?   @db.VarChar
   otp_expires_at     DateTime? @db.Timestamp(6)
+  otp_attempts       Int       @default(0)
+  otp_last_sent      DateTime? @db.Timestamp(6)
   est_actif          Boolean   @default(true)
   langue_preference  String    @default("fr") @db.VarChar(5)
   derniere_connexion DateTime? @db.Timestamp(6)
@@ -134,6 +136,8 @@ model profils_enseignants {
   date_prise_service DateTime? @db.Date
   photo_url          String?   @db.VarChar
   username           String?   @db.VarChar
+  sexe               String?   @db.VarChar
+  age                Int?
 
   utilisateur utilisateurs @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
   ecole       ecoles       @relation(fields: [ecole_id], references: [id], onDelete: Cascade)
@@ -155,7 +159,7 @@ model profils_eleves {
   date_naissance DateTime @db.Date
   lieu_naissance String   @db.VarChar
   sexe           String?  @db.VarChar
-  nationalite    String   @default("Camerounaise") @db.VarChar
+  nationalite    String?  @default("Camerounaise") @db.VarChar
   photo_url      String?  @db.VarChar
   statut         String   @default("actif") @db.VarChar // actif | suspendu | quitte
 
@@ -171,15 +175,17 @@ model profils_eleves {
 model profils_parents {
   id                     String  @id @default(uuid()) @db.Uuid
   utilisateur_id         String  @unique @db.Uuid
-  nom                    String  @db.VarChar
-  prenom                 String  @db.VarChar
-  telephone              String  @db.VarChar
+  nom                    String? @db.VarChar
+  prenom                 String? @db.VarChar
+  telephone              String? @db.VarChar
   telephone_mobile_money String? @db.VarChar
   operateur_mobile_money String? @db.VarChar
   profession             String? @db.VarChar
   adresse                String? @db.Text
   photo_url              String? @db.VarChar
   username               String? @db.VarChar
+  sexe                   String?  @db.VarChar
+  age                    Int?
 
   utilisateur    utilisateurs              @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade)
   enfants        eleve_parent[]
@@ -598,6 +604,10 @@ model forum_topics {
   tags           String[] @default([])
   type           String   @db.VarChar @default("text") // text | image | lien
   lien_url       String?  @db.VarChar
+  lien_preview_title String? @db.VarChar
+  lien_preview_image String? @db.Text
+  lien_preview_desc  String? @db.Text
+  thematique     String?  @db.VarChar
   est_epingle    Boolean  @default(false)
   est_verrouille Boolean  @default(false)
   est_supprime   Boolean  @default(false)

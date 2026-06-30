@@ -30,7 +30,7 @@ export default function StudentsPage() {
     const openAdd = () => { setEditTarget(null); setForm({ ...EMPTY_FORM, annee_id: activeYear?.id ?? '' }); setError(''); setIsModalOpen(true); };
     const openEdit = (s: Student) => {
         setEditTarget(s);
-        setForm({ nom: s.nom, prenom: s.prenom, date_naissance: s.date_naissance?.split('T')[0] ?? '', lieu_naissance: '', sexe: s.sexe ?? '', nationalite: 'Camerounaise', classe_id: s.inscriptions[0]?.classe?.id ?? '', annee_id: s.inscriptions[0]?.annee?.id ?? '', photo_url: s.photo_url ?? '', parent_email: '', parent_phone: '' });
+        setForm({ nom: s.nom, prenom: s.prenom, date_naissance: s.date_naissance?.split('T')[0] ?? '', lieu_naissance: s.lieu_naissance ?? '', sexe: s.sexe ?? '', nationalite: s.nationalite ?? 'Camerounaise', classe_id: s.inscriptions[0]?.classe?.id ?? '', annee_id: s.inscriptions[0]?.annee?.id ?? '', photo_url: s.photo_url ?? '', parent_email: '', parent_phone: '' });
         setError(''); setIsModalOpen(true);
     };
 

@@ -2,33 +2,26 @@ import { Request, Response } from 'express';
 import { prisma } from '../../lib/prisma';
 
 export const getEtablissementsDisponibles = async (req: Request, res: Response) => {
-    const { id: userId, role, tenant_id } = req.user!;
+    const currentEmail = req.user!.email;
     try {
+        const users = await prisma.utilisateurs.findMany({
+            where: { email: currentEmail, est_actif: true },
+            include: { tenant: true, profil_enseignant: true, profil_parent: true }
+        });
         const list: any[] = [];
-        if (role === 'enseignant') {
-            const p = await prisma.profils_enseignants.findFirst({
-                where: { utilisateur_id: userId }, include: { ecole: { include: { tenant: true } } }
-            });
-            if (p?.ecole?.tenant) list.push({ id: p.ecole.tenant.id, nom: p.ecole.tenant.nom, role });
-        }
-        if (role === 'parent') {
-            const parent = await prisma.profils_parents.findUnique({ where: { utilisateur_id: userId } });
-            if (parent) {
-                const ins = await prisma.inscriptions.findMany({
-                    where: { statut: 'actif', eleve: { parents: { some: { parent_id: parent.id } } } },
-                    include: { classe: { include: { ecole: { include: { tenant: true } } } } }
-                });
-                const seen = new Set();
-                ins.forEach(i => {
-                    const t = i.classe?.ecole?.tenant;
-                    if (t && !seen.has(t.id)) { seen.add(t.id); list.push({ id: t.id, nom: t.nom, role }); }
-                });
+        users.forEach(u => {
+            if (u.profil_enseignant) {
+                list.push({ id: u.tenant.id, nom: u.tenant.nom, role: 'enseignant', user_id: u.id, sous_domaine: u.tenant.sous_domaine });
             }
-        }
-        if (role === 'admin_ecole' || role === 'super_admin') {
-            const t = await prisma.tenants.findUnique({ where: { id: tenant_id } });
-            if (t) list.push({ id: t.id, nom: t.nom, role });
-        }
+            if (u.profil_parent) {
+                list.push({ id: u.tenant.id, nom: u.tenant.nom, role: u.role === 'user' ? 'user' : 'parent', user_id: u.id, sous_domaine: u.tenant.sous_domaine });
+            }
+            if (u.role === 'admin_ecole' || u.role === 'super_admin') {
+                list.push({ id: u.tenant.id, nom: u.tenant.nom, role: u.role, user_id: u.id, sous_domaine: u.tenant.sous_domaine });
+            }
+        });
         res.json(list);
-    } catch (e) { res.status(500).json({ error: 'Erreur.' }); }
+    } catch (e) {
+        res.status(550).json({ error: 'Erreur lors de la récupération des établissements.' });
+    }
 };

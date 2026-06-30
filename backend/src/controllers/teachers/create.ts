@@ -47,6 +47,6 @@ export const createTeacher = async (req: Request, res: Response) => {
         });
         
         await sendEmail(email, 'Vos accès Enseignant', `<h1>Bienvenue sur AcademiaTrack</h1><p>Voici vos accès :</p><p>Email : ${email}</p><p>Mot de passe temporaire : <b>${pswd}</b></p>`);
-        res.status(201).json({ ...result, message: `Compte créé et accès envoyés par email.` });
+        res.status(201).json({ ...result, temp_password: pswd, message: `Compte créé et accès envoyés par email.` });
     } catch (e: any) { res.status(500).json({ error: 'Erreur.' }); }
 };
