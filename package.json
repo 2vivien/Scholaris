@@ -1,0 +1,12 @@
+{
+  "name": "scholaris-root",
+  "private": true,
+  "scripts": {
+    "dev": "npx concurrently \"npm --prefix backend run dev\" \"npm --prefix frontend run dev\"",
+    "build": "npm --prefix backend run build && npm --prefix frontend run build",
+    "start": "npx concurrently \"npm --prefix backend run start\" \"npm --prefix frontend run preview\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
