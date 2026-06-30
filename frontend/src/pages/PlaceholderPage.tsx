@@ -92,10 +92,10 @@ export const PlaceholderPage = ({ title, category }: PlaceholderPageProps) => {
             </header>
 
             {/* Documentation Layout Structure */}
-            <div className="relative flex-1 flex max-w-[1600px] mx-auto w-full z-10">
+            <div className="relative flex-1 flex max-w-[1600px] mx-auto w-full z-10 h-[calc(100vh-4rem)] overflow-hidden">
                 
                 {/* ── Left Sidebar (Navigation) ── */}
-                <aside className={`hidden lg:block w-72 shrink-0 border-r py-8 px-6 h-[calc(100vh-4rem)] sticky top-16 self-start overflow-y-auto scrollbar-thin ${t('border-slate-200 bg-white/50', 'border-zinc-800/50 bg-[#0A0A0A]/80')}`}>
+                <aside className={`hidden lg:block w-72 shrink-0 border-r py-8 px-6 h-[calc(100vh-4rem)] overflow-y-auto ${t('border-slate-200 bg-white/50', 'border-zinc-800/50 bg-[#0A0A0A]/80')}`}>
                     <div className="flex items-center gap-2 mb-8 px-2">
                         <BookOpen className="w-4 h-4 text-emerald-600" />
                         <span className={`font-bold text-xs uppercase tracking-widest ${t('text-slate-800', 'text-white')}`}>Catalogue</span>
@@ -126,7 +126,7 @@ export const PlaceholderPage = ({ title, category }: PlaceholderPageProps) => {
                 </aside>
 
                 {/* ── Main Content Area ── */}
-                <main className="flex-1 min-w-0 py-10 px-6 sm:px-12 lg:px-16 xl:px-24">
+                <main className="flex-1 min-w-0 py-10 px-6 sm:px-12 lg:px-16 xl:px-24 h-[calc(100vh-4rem)] overflow-y-auto">
                     <div className="max-w-3xl">
                         {/* Breadcrumbs */}
                         <div className={`flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider mb-8 ${t('text-slate-400', 'text-zinc-500')}`}>
@@ -174,7 +174,7 @@ export const PlaceholderPage = ({ title, category }: PlaceholderPageProps) => {
                 </main>
 
                 {/* ── Right Sidebar (On this page Table of Contents) ── */}
-                <aside className={`hidden xl:block w-64 shrink-0 py-10 px-6 h-[calc(100vh-4rem)] sticky top-16 self-start overflow-y-auto scrollbar-thin`}>
+                <aside className={`hidden xl:block w-64 shrink-0 py-10 px-6 h-[calc(100vh-4rem)] overflow-y-auto`}>
                     <h3 className={`text-[10px] font-black uppercase tracking-widest mb-6 ${t('text-slate-900', 'text-white')}`}>
                         Sur cette page
                     </h3>
