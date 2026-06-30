@@ -7,9 +7,9 @@ const PWD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&_\-\+\=\(\)\[\]\{\}\<\>\
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { nom_tenant, sous_domaine, pays, email, mot_de_passe, sexe, age } = req.body;
+        const { nom_tenant, sous_domaine, email, mot_de_passe, sexe, age } = req.body;
         if (!email || !mot_de_passe) return res.status(400).json({ error: 'Email et mot de passe requis.' });
-        if (!PWD_REGEX.test(mot_de_passe)) return res.status(400).json({ error: 'Le mot de passe doit faire 8 à 16 caractères et contenir une lettre, un chiffre et un caractère spécial.' });
+        if (!PWD_REGEX.test(mot_de_passe)) return res.status(400).json({ error: 'Le mot de passe doit faire 8 à 16 caractères et contenir au moins une lettre, un chiffre et un caractère spécial.' });
 
         const exists = await prisma.utilisateurs.findFirst({ where: { email } });
         if (exists) {
@@ -20,18 +20,7 @@ export const register = async (req: Request, res: Response) => {
                 }
                 return res.status(400).json({ error: 'Cet email est déjà utilisé.' });
             }
-            if (exists.otp_attempts >= 3) return res.status(400).json({ error: 'Nombre maximal de tentatives de code atteint.' });
-            if (exists.otp_last_sent && Date.now() - new Date(exists.otp_last_sent).getTime() < 30000) {
-                return res.status(429).json({ error: 'Veuillez patienter 30 secondes avant de demander un nouveau code.' });
-            }
-            const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
-            const hashed = await bcrypt.hash(mot_de_passe, 10);
-            await prisma.utilisateurs.update({
-                where: { id: exists.id },
-                data: { mot_de_passe: hashed, otp_code: otpCode, otp_expires_at: new Date(Date.now() + 600000), otp_attempts: exists.otp_attempts + 1, otp_last_sent: new Date() }
-            });
-            await sendRegistrationOTP(email, otpCode);
-            return res.json({ status: 'pending_otp', message: 'Nouveau code OTP envoyé.' });
+            await prisma.utilisateurs.delete({ where: { id: exists.id } });
         }
 
         const hashedPassword = await bcrypt.hash(mot_de_passe, 10);
@@ -57,6 +46,6 @@ export const register = async (req: Request, res: Response) => {
         await sendRegistrationOTP(email, otpCode);
         res.status(201).json({ status: 'pending_otp', message: 'Veuillez valider votre compte avec le code OTP envoyé par email.' });
     } catch (error) {
-        res.status(550).json({ error: 'Erreur lors de l\'inscription.' });
+        res.status(500).json({ error: 'Erreur lors de l\'inscription.' });
     }
 };
