@@ -179,38 +179,185 @@ export const pageContents: Record<string, DocSection[]> = {
       ] 
     }
   ],
-  "/thematique/etudes-apprentissage": [
+  "/docs/forum-thematiques": [
     { 
-      title: "Thématique : Études & Apprentissage", 
+      title: "1. Études & Apprentissage", 
       content: [
-        "Cet espace du forum est dédié à la pédagogie. Enseignants et parents peuvent y échanger sur les méthodes de révision, le partage de ressources éducatives en ligne, ou les conseils pour aider un enfant en difficulté.",
-        "C'est le lieu idéal pour construire une véritable synergie autour de la réussite scolaire de chaque élève."
+        "• Pourquoi ça existe : Permettre à la communauté de s'entraider sur les devoirs et les méthodes d'étude.",
+        "• Ce que ça regroupe : Soutien scolaire, méthodes de révision, partage de fiches de cours.",
+        "• Acteurs impliqués : Enseignants (qui partagent des ressources) et Élèves/Parents (qui posent des questions).",
+        "• Tags associés : #Devoirs, #Soutien, #Méthodologie, #Révisions"
       ] 
-    }
-  ],
-  "/thematique/vie-scolaire": [
+    },
     { 
-      title: "Thématique : Vie Scolaire", 
+      title: "2. Vie Familiale & Éducation à la Maison", 
       content: [
-        "La vie scolaire regroupe tout ce qui fait battre le cœur de l'établissement : annonces des clubs, retours sur les sorties pédagogiques, règles de vie en communauté, ou organisation de la kermesse de fin d'année.",
-        "Restez informé des événements qui rythment le quotidien de vos enfants."
+        "• Pourquoi ça existe : Créer un pont solide entre l'éducation scolaire et l'éducation familiale.",
+        "• Ce que ça regroupe : Astuces parentales, organisation des routines du soir, conciliation vie pro/vie de famille.",
+        "• Acteurs impliqués : Principalement les Parents entre eux, parfois conseillés par les Psychologues de l'école.",
+        "• Tags associés : #Parentalité, #Routine, #ConseilsFamille, #Éducation"
       ] 
-    }
-  ],
-  "/thematique/orientation": [
+    },
     { 
-      title: "Thématique : Orientation et Avenir", 
+      title: "3. Carrière & Développement Professionnel", 
       content: [
-        "Un espace clé pour accompagner les choix cruciaux. Retrouvez-y les conseils des experts, les présentations de filières universitaires, ou les témoignages d'anciens élèves.",
-        "Cette thématique est pensée pour guider sereinement les familles vers la préparation des examens et l'insertion professionnelle."
+        "• Pourquoi ça existe : Valoriser la formation continue et l'évolution du personnel éducatif.",
+        "• Ce que ça regroupe : Offres de formation pour les professeurs, partage de bonnes pratiques pédagogiques, annonces internes.",
+        "• Acteurs impliqués : Enseignants et Administration de l'école.",
+        "• Tags associés : #Formation, #Pédagogie, #Carrière, #Recrutement"
       ] 
-    }
-  ],
-  "/thematique/bien-etre": [
+    },
     { 
-      title: "Thématique : Santé et Bien-être", 
+      title: "4. Bien-être & Santé Mentale", 
       content: [
-        "Parce qu'un élève épanoui apprend mieux, cet espace aborde la santé physique et mentale. Il encourage le dialogue sur la gestion du stress à l'approche des examens, l'importance du sport, de l'alimentation, et la prévention face au harcèlement scolaire."
+        "• Pourquoi ça existe : S'assurer que chaque élève évolue dans un climat psychologique serein.",
+        "• Ce que ça regroupe : Gestion du stress des examens, lutte contre l'anxiété, importance du sommeil et de l'équilibre.",
+        "• Acteurs impliqués : Parents, Enseignants, Infirmerie scolaire et Psychologues.",
+        "• Tags associés : #Stress, #Sommeil, #SantéMentale, #Sérénité"
+      ] 
+    },
+    { 
+      title: "5. Langues & Communication", 
+      content: [
+        "• Pourquoi ça existe : Promouvoir l'ouverture à l'international et la maîtrise linguistique.",
+        "• Ce que ça regroupe : Organisation d'échanges linguistiques, recherche de correspondants, immersion bilingue.",
+        "• Acteurs impliqués : Professeurs de langues, Élèves et Parents.",
+        "• Tags associés : #Bilingue, #Correspondants, #Anglais, #VoyageLinguistique"
+      ] 
+    },
+    { 
+      title: "6. Sciences & Découverte du Monde", 
+      content: [
+        "• Pourquoi ça existe : Éveiller la curiosité scientifique de toute la communauté.",
+        "• Ce que ça regroupe : Expériences amusantes à faire à la maison, actualités scientifiques, vulgarisation.",
+        "• Acteurs impliqués : Enseignants scientifiques, Élèves passionnés et Parents.",
+        "• Tags associés : #Sciences, #Biologie, #Expériences, #Découverte"
+      ] 
+    },
+    { 
+      title: "7. Arts & Créativité", 
+      content: [
+        "• Pourquoi ça existe : Mettre en lumière et développer les talents artistiques de l'établissement.",
+        "• Ce que ça regroupe : Club de théâtre, chorale, expositions de dessins, sorties culturelles au musée.",
+        "• Acteurs impliqués : Enseignants en Arts, Élèves créatifs et Parents spectateurs.",
+        "• Tags associés : #Musique, #Théâtre, #Dessin, #Exposition"
+      ] 
+    },
+    { 
+      title: "8. Littérature & Lecture", 
+      content: [
+        "• Pourquoi ça existe : Encourager la passion pour la lecture en dehors des heures de cours.",
+        "• Ce que ça regroupe : Recommandations de livres, création d'un club de lecture, résumés d'ouvrages classiques.",
+        "• Acteurs impliqués : Bibliothécaires, Professeurs de lettres et Familles.",
+        "• Tags associés : #Lecture, #Livre, #ClubDeLecture, #Littérature"
+      ] 
+    },
+    { 
+      title: "9. Sport & Activité Physique", 
+      content: [
+        "• Pourquoi ça existe : Coordonner et célébrer la vie sportive de l'école.",
+        "• Ce que ça regroupe : Annonces de tournois, résultats des matchs inter-écoles, conseils sportifs santé.",
+        "• Acteurs impliqués : Professeurs d'EPS, Élèves athlètes et Parents supporters.",
+        "• Tags associés : #Tournoi, #Entraînement, #Football, #Athlétisme"
+      ] 
+    },
+    { 
+      title: "10. Vie Scolaire & Vie de Classe", 
+      content: [
+        "• Pourquoi ça existe : Faciliter la logistique et l'organisation quotidienne spécifique à chaque classe.",
+        "• Ce que ça regroupe : Mots dans le carnet virtuel, organisation d'événements de classe, rappels de devoirs collectifs.",
+        "• Acteurs impliqués : Professeurs principaux, Délégués de classe et Parents d'élèves.",
+        "• Tags associés : #Classe, #Règlement, #Délégués, #Quotidien"
+      ] 
+    },
+    { 
+      title: "11. Numérique & Éducation", 
+      content: [
+        "• Pourquoi ça existe : Accompagner la transition numérique et protéger les élèves sur internet.",
+        "• Ce que ça regroupe : Tutoriels sur l'utilisation des tablettes, prévention sur le temps d'écran, recommandations d'outils éducatifs.",
+        "• Acteurs impliqués : Service Informatique (IT), Enseignants et Parents.",
+        "• Tags associés : #Informatique, #Tablette, #Écrans, #Application"
+      ] 
+    },
+    { 
+      title: "12. Orientation & Parcours Scolaire", 
+      content: [
+        "• Pourquoi ça existe : Préparer sereinement l'avenir académique et professionnel des élèves.",
+        "• Ce que ça regroupe : Fiches métiers, journées portes ouvertes des universités, accompagnement sur Parcoursup.",
+        "• Acteurs impliqués : Conseillers d'orientation, Parents et Élèves.",
+        "• Tags associés : #Orientation, #Université, #Métiers, #Parcoursup"
+      ] 
+    },
+    { 
+      title: "13. Évaluations & Certifications", 
+      content: [
+        "• Pourquoi ça existe : Démystifier le système de notation et organiser les examens officiels.",
+        "• Ce que ça regroupe : Explication de la lecture des bulletins, plannings d'examens blancs, passages de certifications (TOEFL, Brevet, Bac).",
+        "• Acteurs impliqués : Direction des études, Enseignants et Parents.",
+        "• Tags associés : #Examen, #Brevet, #Bac, #Certification"
+      ] 
+    },
+    { 
+      title: "14. Inclusion & Diversité", 
+      content: [
+        "• Pourquoi ça existe : Garantir que chaque enfant se sente accepté et valorisé au sein de l'école.",
+        "• Ce que ça regroupe : Intégration des élèves en situation de handicap, lutte contre les discriminations, ateliers d'inclusion.",
+        "• Acteurs impliqués : Toute la communauté éducative (Direction, Profs, Parents, Élèves).",
+        "• Tags associés : #Inclusion, #Diversité, #Tolérance, #Handicap"
+      ] 
+    },
+    { 
+      title: "15. Citoyenneté & Engagement", 
+      content: [
+        "• Pourquoi ça existe : Former les citoyens de demain à travers des actions associatives et écologiques.",
+        "• Ce que ça regroupe : Bénévolat, collecte caritative locale, élections des délégués, projets écologiques de l'école.",
+        "• Acteurs impliqués : Élèves volontaires, Direction et Associations partenaires.",
+        "• Tags associés : #Bénévolat, #Collecte, #Citoyenneté, #Écologie"
+      ] 
+    },
+    { 
+      title: "16. Équipement & Ressources", 
+      content: [
+        "• Pourquoi ça existe : Faciliter la gestion du matériel scolaire physique.",
+        "• Ce que ça regroupe : Listes officielles de fournitures, bourse aux livres d'occasion, commandes d'uniformes, signalement des objets perdus.",
+        "• Acteurs impliqués : Administration, Parents d'élèves et Intendance.",
+        "• Tags associés : #Fournitures, #Livres, #Uniforme, #ObjetsTrouvés"
+      ] 
+    },
+    { 
+      title: "17. Actualités & Annonces", 
+      content: [
+        "• Pourquoi ça existe : Diffuser massivement et rapidement les informations officielles de l'établissement.",
+        "• Ce que ça regroupe : Fermeture exceptionnelle, mots officiels du directeur, alertes météo, changements d'emploi du temps majeurs.",
+        "• Acteurs impliqués : Exclusivement la Direction de l'école (en communication descendante).",
+        "• Tags associés : #Annonce, #Urgent, #Direction, #Information"
+      ] 
+    },
+    { 
+      title: "18. Incidents & Sécurité Scolaire", 
+      content: [
+        "• Pourquoi ça existe : Assurer la protection physique, numérique et morale des élèves.",
+        "• Ce que ça regroupe : Alertes de sécurité (plan vigipirate), prévention routière aux abords de l'école, lutte ferme contre le harcèlement scolaire.",
+        "• Acteurs impliqués : Équipe de surveillance, Direction et Parents vigilants.",
+        "• Tags associés : #Sécurité, #Harcèlement, #Prévention, #Vigilance"
+      ] 
+    },
+    { 
+      title: "19. Alimentation & Mode de Vie", 
+      content: [
+        "• Pourquoi ça existe : Assurer une bonne hygiène de vie et nutritionnelle au sein de l'établissement.",
+        "• Ce que ça regroupe : Menus officiels de la semaine à la cantine, gestion pointue des allergies alimentaires, idées de goûters sains.",
+        "• Acteurs impliqués : Service de cantine/restauration, Infirmière scolaire et Parents.",
+        "• Tags associés : #Cantine, #Menu, #Allergies, #Nutrition"
+      ] 
+    },
+    { 
+      title: "20. Inspirations & Témoignages", 
+      content: [
+        "• Pourquoi ça existe : Motiver la communauté grâce à des histoires de réussite et tisser un réseau d'anciens.",
+        "• Ce que ça regroupe : Parcours brillants d'anciens élèves (Alumnis), remises de diplômes, messages de remerciement aux professeurs.",
+        "• Acteurs impliqués : Anciens élèves (Alumnis), Enseignants et Parents fiers.",
+        "• Tags associés : #Témoignage, #Réussite, #Alumni, #Inspiration"
       ] 
     }
   ],

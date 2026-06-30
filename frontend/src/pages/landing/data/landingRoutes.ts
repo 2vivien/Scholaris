@@ -47,19 +47,8 @@ export const landingRoutes: LandingRoute[] = [
     { path: '/docs/notifications', title: "Notifications", category: "Documentation" },
     { path: '/docs/api', title: "API Documentation", category: "Documentation" },
     
-    // Forum Thématiques (pages détaillées)
-    { path: '/thematique/etudes-apprentissage', title: "Thématique : Études & Apprentissage", category: "Thématiques" },
-    { path: '/thematique/vie-familiale', title: "Thématique : Vie Familiale", category: "Thématiques" },
-    { path: '/thematique/vie-scolaire', title: "Thématique : Vie Scolaire", category: "Thématiques" },
-    { path: '/thematique/orientation', title: "Thématique : Orientation", category: "Thématiques" },
-    { path: '/thematique/bien-etre', title: "Thématique : Bien-être", category: "Thématiques" },
-
-    // Développeurs
-    { path: '/dev/api', title: "API & Intégration", category: "Développeurs" },
-    { path: '/dev/sdk', title: "SDKs", category: "Développeurs" },
-    { path: '/dev/webhooks', title: "Webhooks", category: "Développeurs" },
-    { path: '/dev/oauth', title: "OAuth Single Sign-On", category: "Développeurs" },
-    { path: '/dev/integrations', title: "Intégrations Tierces", category: "Développeurs" },
+    // Forum Thématiques
+    { path: '/docs/forum-thematiques', title: "Guide des 20 Thématiques", category: "Documentation" },
 
     // Légal
     { path: '/legal/cgu', title: "Conditions Générales d'Utilisation (CGU)", category: "Légal" },
