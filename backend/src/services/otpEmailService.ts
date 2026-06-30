@@ -14,6 +14,12 @@ const transporter = nodemailer.createTransport({
 });
 
 export const sendRegistrationOTP = async (to: string, otpCode: string) => {
+    // Toujours afficher l'OTP dans la console pour faciliter le développement/tests
+    console.log("\n==================================================");
+    console.log(`🔑 [OTP CODE] Inscription de : ${to}`);
+    console.log(`👉 CODE DE VÉRIFICATION : ${otpCode}`);
+    console.log("==================================================\n");
+
     const mailOptions = {
         from: `"${process.env.EMAIL_SENDER_NAME}" <${process.env.EMAIL_USER}>`,
         replyTo: process.env.EMAIL_REPLY_TO,

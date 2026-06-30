@@ -1,0 +1,109 @@
+{
+  "stats": [
+    { "value": "120+", "label": "Établissements actifs" },
+    { "value": "18 500+", "label": "Élèves gérés" },
+    { "value": "95 000+", "label": "Bulletins générés" },
+    { "value": "99.9%", "label": "Disponibilité SLA" }
+  ],
+  "forumQuestions": [
+    { "q": "Comment aider mon enfant à mieux réviser ?", "category": "Méthodologie" },
+    { "q": "Quelle orientation choisir après le collège ?", "category": "Orientation" },
+    { "q": "Comment gérer le stress avant les examens ?", "category": "Bien-être" },
+    { "q": "Quels outils numériques recommandez-vous ?", "category": "Technologie" }
+  ],
+  "thematiques": [
+    "Études & Apprentissage",
+    "Vie Familiale & Éducation à la Maison",
+    "Carrière & Développement Professionnel",
+    "Bien-être & Santé Mentale",
+    "Langues & Communication",
+    "Sciences & Découverte du Monde",
+    "Arts & Créativité",
+    "Littérature & Lecture",
+    "Sport & Activité Physique",
+    "Vie Scolaire & Vie de Classe",
+    "Numérique & Éducation",
+    "Orientation & Parcours Scolaire",
+    "Évaluations & Certifications",
+    "Inclusion & Diversité",
+    "Citoyenneté & Engagement",
+    "Équipement & Ressources",
+    "Actualités & Annonces",
+    "Incidents & Sécurité Scolaire",
+    "Alimentation & Mode de Vie",
+    "Inspirations & Témoignages"
+  ],
+  "mobileBenefits": [
+    "Emploi du temps synchronisé",
+    "Absences et retards",
+    "Notes et bulletins",
+    "Devoirs",
+    "Événements scolaires",
+    "Messages des enseignants",
+    "Notifications instantanées"
+  ],
+  "schoolManagementItems": [
+    "Élèves", "Enseignants", "Parents", "Classes",
+    "Notes", "Bulletins", "Présences", "Paiements",
+    "Emplois du temps", "Communication interne"
+  ],
+  "parentsBenefits": [
+    "Suivez sa progression scolaire.",
+    "Échangez avec une communauté de parents.",
+    "Recevez les informations importantes en temps réel.",
+    "Accédez aux ressources éducatives.",
+    "Restez en contact avec les enseignants.",
+    "Retrouvez facilement les documents scolaires."
+  ],
+  "schoolBenefits": [
+    { "title": "Administration simplifiée", "desc": "Tous vos flux administratifs regroupés sur une seule interface." },
+    { "title": "Communication renforcée", "desc": "Créez un lien direct et permanent avec l'ensemble des familles." },
+    { "title": "Parents mieux informés", "desc": "Améliorez le suivi éducatif en temps réel." },
+    { "title": "Collaboration facilitée", "desc": "Permettez à vos enseignants et personnels de travailler main dans la main." },
+    { "title": "Gain de temps pour les équipes", "desc": "Automatisez les calculs de moyennes et de bulletins scolaires." },
+    { "title": "Une image moderne auprès des familles", "desc": "Offrez à votre communauté scolaire une interface d'avant-garde." }
+  ],
+  "howItWorks": [
+    { "n": "1", "title": "Prise en charge", "desc": "Notre équipe configure votre espace, paramètre vos classes et importe vos données existantes." },
+    { "n": "2", "title": "Formation express", "desc": "Vos administrateurs, enseignants et personnels maîtrisent la plateforme en moins d'une journée." },
+    { "n": "3", "title": "Pilotage en direct", "desc": "Notes saisies, bulletins générés automatiquement, parents notifiés. La machine tourne seule." }
+  ],
+  "features": [
+    {
+      "iconName": "GraduationCap",
+      "title": "Notes & Bulletins",
+      "desc": "Saisie par séquence, calcul automatique des moyennes et rangs, génération de bulletins PDF conformes aux normes MINESEC."
+    },
+    {
+      "iconName": "CreditCard",
+      "title": "Finances XAF",
+      "desc": "Suivi des tranches de scolarité, encaissement Mobile Money, reçus imprimables et tableau de bord des arriérés."
+    },
+    {
+      "iconName": "Users",
+      "title": "Gestion des profils",
+      "desc": "Fiches élèves complètes, liaison parents-enfants, dossiers enseignants et gestion des inscriptions par classe."
+    },
+    {
+      "iconName": "UserCheck",
+      "title": "Présences & Absences",
+      "desc": "Appel quotidien par classe, rapport mensuel, justifications parentales et alertes automatiques."
+    },
+    {
+      "iconName": "Calendar",
+      "title": "Emploi du temps",
+      "desc": "Grille hebdomadaire par classe, assignation enseignant/salle/matière, consultation sur tous les appareils."
+    },
+    {
+      "iconName": "BarChart3",
+      "title": "Reporting & Analytics",
+      "desc": "Tableaux de bord en temps réel, indicateurs de performance académique, exports Excel et PDF."
+    }
+  ],
+  "security": [
+    { "iconName": "Shield", "title": "Authentification JWT", "desc": "Tokens sécurisés, sessions limitées, aucun accès non autorisé." },
+    { "iconName": "Users", "title": "Rôles & Permissions", "desc": "Chaque utilisateur voit uniquement ce qu'il est autorisé à voir." },
+    { "iconName": "Globe", "title": "Isolation Multi-tenant", "desc": "Les données de chaque école sont totalement cloisonnées." },
+    { "iconName": "ClipboardList", "title": "Logs d'activité", "desc": "Traçabilité complète de toutes les actions sur la plateforme." }
+  ]
+}

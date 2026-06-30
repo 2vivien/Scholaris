@@ -19,6 +19,7 @@
 html {
   scroll-behavior: smooth;
   background-color: #f8fafc;
+  overflow-x: hidden;
 }
 
 body {
@@ -28,6 +29,7 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 .input-field {
@@ -55,4 +57,14 @@ body {
 .no-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* Background Dot Grid Utilities */
+.dot-grid-light {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.05) 1.2px, transparent 1.2px);
+}
+.dot-grid-dark {
+  background-size: 24px 24px;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.06) 1.2px, transparent 1.2px);
 }

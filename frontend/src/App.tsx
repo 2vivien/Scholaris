@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
+import PlaceholderPage from './pages/PlaceholderPage';
+import { landingRoutes } from './pages/landing/data/landingRoutes';
 import LoginPage from './pages/LoginPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import SetupSuperAdmin from './pages/SetupSuperAdmin';
@@ -45,6 +47,15 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
           <Route path="/setup-superadmin" element={<SetupSuperAdmin />} />
+          
+          {/* Landing Subpages */}
+          {landingRoutes.map(route => (
+            <Route 
+              key={route.path} 
+              path={route.path} 
+              element={<PlaceholderPage title={route.title} category={route.category} />} 
+            />
+          ))}
           
           {/* Portail Parent / Simple User */}
           <Route element={<ProtectedRoute allowedRoles={['parent', 'user']} />}>
