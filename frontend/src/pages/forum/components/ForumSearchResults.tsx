@@ -30,8 +30,9 @@ export default function ForumSearchResults({ search, activeTab, onChangeTab, onL
                         {results.thematiques.map(t => <div key={t.id} className="p-4 bg-white border border-slate-200 rounded-2xl shadow-sm text-xs font-bold text-slate-800">{t.nom}</div>)}
                     </div>
                 )}
-                {results.type === 'comments' && (
+                {results.type === 'all' && results.comments.length > 0 && (
                     <div className="space-y-3">
+                        <h4 className="text-xs font-bold text-slate-405 uppercase tracking-wider text-left">Commentaires correspondants</h4>
                         {results.comments.map(({ reply, topic }) => (
                             <Link key={reply.id} to={`topics/${topic.id}`} className="block p-4 bg-slate-50/50 border border-slate-200 rounded-2xl hover:border-slate-350 transition-all space-y-2 text-left">
                                 <div className="text-[10px] font-bold text-slate-400">Commentaire sur : "{topic.titre}"</div>

@@ -5,6 +5,8 @@ import { BookOpen, Mail, Lock, ArrowRight, Loader2, ArrowLeft, AlertCircle } fro
 import api from '../lib/api';
 import { useAuth } from '../context/AuthContext';
 
+import RegisterLeftPanel from './register/components/RegisterLeftPanel';
+
 const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } }
@@ -46,7 +48,7 @@ const LoginPage = () => {
                         <Link to={dest} className="py-2.5 px-4 bg-slate-900 text-white rounded-xl text-xs font-bold hover:bg-slate-800 transition-colors block">
                             Accéder à mon espace
                         </Link>
-                        <button onClick={handleLogout} className="py-2.5 px-4 border border-slate-200 text-slate-600 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors cursor-pointer block w-full">
+                        <button onClick={handleLogout} className="py-2.5 px-4 border border-slate-200 text-slate-650 hover:bg-slate-50 rounded-xl text-xs font-bold transition-colors cursor-pointer block w-full">
                             Se déconnecter / Changer de compte
                         </button>
                     </div>
@@ -74,7 +76,10 @@ const LoginPage = () => {
                        : userData.role === 'parent'      ? '/parent'
                        : userData.role === 'user'        ? '/user'
                        : '/ecole-dashboard';
-            navigate(dest, { replace: true });
+            const from = location.state?.from 
+                ? `${location.state.from.pathname}${location.state.from.search || ''}`
+                : dest;
+            navigate(from, { replace: true });
         } catch (err: any) {
             setError(err.response?.data?.error || 'Une erreur est survenue lors de la connexion.');
             setIsLoading(false);
@@ -85,44 +90,7 @@ const LoginPage = () => {
         <div className="min-h-screen w-full flex items-center justify-center p-4 sm:p-6 bg-slate-950/40 backdrop-blur-md font-sans select-none overflow-y-auto selection:bg-emerald-100 selection:text-emerald-900">
             <div className="w-full max-w-4xl bg-white rounded-3xl overflow-hidden shadow-2xl flex min-h-[500px] border border-slate-200/50">
 
-                {/* Left panel - Visual/Brand */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    className="hidden lg:flex w-[42%] relative overflow-hidden bg-slate-900 flex-col justify-between p-10"
-                >
-                    <motion.img
-                        initial={{ scale: 1.1 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 2, ease: "easeOut" }}
-                        src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-                        alt="Élèves en classe"
-                        className="absolute inset-0 w-full h-full object-cover opacity-50"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-slate-900/10"></div>
-                    <div className="absolute inset-0 bg-emerald-900/20 mix-blend-overlay"></div>
-
-                    <Link to="/" className="flex items-center gap-3 relative z-10 w-max group">
-                        <img src="/images/logoacademiatracket.png" alt="AcademiaTrack Logo" className="w-10 h-10 object-contain rounded-xl bg-white p-1 shadow-md group-hover:scale-105 transition-transform" />
-                        <span className="font-extrabold text-2xl tracking-tight text-white">
-                            AcademiaTrack<span className="text-emerald-400">.</span>
-                        </span>
-                    </Link>
-
-                    <div className="relative z-10 my-auto py-6 space-y-4">
-                        <div className="inline-block px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white text-[9px] font-black uppercase tracking-widest">
-                            Espace Sécurisé
-                        </div>
-                        <h1 className="text-2xl font-black text-white leading-tight uppercase">
-                            L'excellence académique <br />
-                            <span className="text-emerald-400">à portée de clic.</span>
-                        </h1>
-                        <p className="text-slate-350 text-xs font-semibold leading-relaxed">
-                            Identifiez-vous pour administrer les notes, la comptabilité et le suivi rigoureux de vos apprenants.
-                        </p>
-                    </div>
-                </motion.div>
+                <RegisterLeftPanel />
 
                 {/* Right panel - Auth Form */}
                 <div className="w-full lg:w-[58%] flex flex-col justify-center p-8 sm:p-12 relative bg-white">

@@ -27,7 +27,7 @@ export function saveDataUrlImage(dataUrl: string, prefix = 'img'): string {
     if (!ext) throw new Error('Type d\'image non supporté.');
 
     const buffer = Buffer.from(match[2], 'base64');
-    if (buffer.length > 4 * 1024 * 1024) throw new Error('Image trop volumineuse (max 4 Mo).');
+    if (buffer.length > 5 * 1024 * 1024) throw new Error('Image trop volumineuse (max 5 Mo).');
 
     if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 

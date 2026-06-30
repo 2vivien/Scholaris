@@ -28,7 +28,7 @@ export default function TopicMainCardHeader({ topic }: TopicMainCardHeaderProps)
             <div className="flex items-center gap-1.5 ml-auto shrink-0">
                 {topic.est_epingle && <Pin className="w-4 h-4 text-orange-500 fill-orange-500" />}
                 {topic.est_verrouille && <Lock className="w-4 h-4 text-slate-400" />}
-                <TopicMoreMenu topicId={topic.id} />
+                <TopicMoreMenu topicId={topic.id} topicTitle={topic.titre} />
             </div>
         </div>
     );

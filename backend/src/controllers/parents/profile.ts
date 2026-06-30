@@ -6,7 +6,7 @@ export const getParentProfile = async (req: Request, res: Response) => {
     try {
         const p = await prisma.profils_parents.findUnique({
             where: { utilisateur_id: userId },
-            include: { utilisateur: { select: { email: true } } }
+            include: { utilisateur: { select: { email: true, role: true } } }
         });
         const teacherProfile = await prisma.profils_enseignants.findFirst({
             where: { utilisateur_id: userId }
@@ -21,6 +21,7 @@ export const getParentProfile = async (req: Request, res: Response) => {
             sexe: p.sexe,
             age: p.age,
             email: p.utilisateur.email,
+            role: p.utilisateur.role,
             has_teacher_view: !!teacherProfile
         });
     } catch (e) { res.status(500).json({ error: 'Erreur.' }); }
@@ -28,7 +29,11 @@ export const getParentProfile = async (req: Request, res: Response) => {
 
 export const updateParentProfile = async (req: Request, res: Response) => {
     const userId = req.user!.id;
+    const role = req.user!.role;
     const { mot_de_passe, photo_url } = req.body;
+    if (role === 'user' && photo_url !== undefined) {
+        return res.status(400).json({ error: 'Pour modifier votre nom ou photo de profil, veuillez passer à un plan supérieur.' });
+    }
     try {
         const p = await prisma.profils_parents.findUnique({ where: { utilisateur_id: userId } });
         if (!p) return res.status(404).json({ error: 'Profil parent introuvable.' });

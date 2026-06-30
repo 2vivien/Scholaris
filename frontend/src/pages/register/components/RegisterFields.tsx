@@ -2,10 +2,13 @@ import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import type { RegisterController } from '../hooks/useRegisterController';
 
+// Formulaire d'inscription pour un utilisateur public du forum.
+// Cette page collecte uniquement les informations nécessaires pour un compte `user`.
+// La création d'un établissement se fait via un flux distinct de promotion OTP.
 export default function RegisterFields({ state }: { state: RegisterController }) {
     const [showPass, setShowPass] = useState(false);
     return (
-        <form onSubmit={state.handleSubmit} className="space-y-3 font-sans text-left">
+        <form onSubmit={state.handleNext} className="space-y-3 font-sans text-left">
             <div className="space-y-0.5">
                 <label className="block text-[9px] font-black text-slate-400 uppercase tracking-widest">Adresse e-mail</label>
                 <div className="relative group">
@@ -45,7 +48,7 @@ export default function RegisterFields({ state }: { state: RegisterController })
                     </div>
                 </div>
             </div>
-            <button type="submit" disabled={state.isLoading} className="mt-3 w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black shadow-md cursor-pointer transition-all active:scale-[0.98] disabled:opacity-75">{state.isLoading ? 'Création...' : 'Créer un compte'}</button>
+            <button type="submit" className="mt-3 w-full py-3 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black shadow-md cursor-pointer transition-all active:scale-[0.98]">Continuer</button>
         </form>
     );
 }

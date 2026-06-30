@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 
 interface ForumThematiquesBarProps {
     thematiques: { id: number; nom: string }[];
@@ -10,36 +10,58 @@ interface ForumThematiquesBarProps {
 export default function ForumThematiquesBar({ thematiques, selectedThematique, setSelectedThematique }: ForumThematiquesBarProps) {
     const scrollRef = useRef<HTMLDivElement>(null);
 
-    const handleScroll = (direction: 'left' | 'right') => {
+    const handleScroll = () => {
         if (scrollRef.current) {
-            const scrollAmount = 200;
+            const scrollAmount = 240;
             scrollRef.current.scrollBy({
-                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                left: scrollAmount,
                 behavior: 'smooth'
             });
         }
     };
 
     return (
-        <div className="flex items-center bg-white border border-slate-200 rounded-full px-3 py-1.5 shadow-sm mb-4 font-sans gap-2 relative">
-            <button onClick={() => handleScroll('left')} className="p-1 hover:bg-slate-105 rounded-full transition-colors text-slate-500 shrink-0">
-                <ChevronLeft className="w-4 h-4" />
-            </button>
-            
-            <div ref={scrollRef} className="flex-1 flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth py-0.5">
-                <button onClick={() => setSelectedThematique('')} className={`px-3 py-1 rounded-full text-[10px] font-bold whitespace-nowrap transition-colors ${selectedThematique === '' ? 'bg-slate-800 text-white' : 'text-slate-500 hover:bg-slate-100'}`}>
-                    Tout
+        <div className="relative flex items-center font-sans mb-4 w-full select-none">
+            <div 
+                ref={scrollRef} 
+                className="flex-1 flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1 pr-12"
+            >
+                <button 
+                    onClick={() => setSelectedThematique('')} 
+                    className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border cursor-pointer ${
+                        selectedThematique === '' 
+                            ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs' 
+                            : 'bg-slate-50 border-slate-100 text-slate-700 hover:bg-slate-100/80 hover:border-slate-200'
+                    }`}
+                >
+                    Tous les thèmes
                 </button>
                 {thematiques.map(t => (
-                    <button key={t.id} onClick={() => setSelectedThematique(t.nom)} className={`px-3 py-1 rounded-full text-[10px] font-bold whitespace-nowrap transition-colors ${selectedThematique === t.nom ? 'bg-slate-800 text-white' : 'text-slate-500 hover:bg-slate-100'}`}>
+                    <button 
+                        key={t.id} 
+                        onClick={() => setSelectedThematique(t.nom)} 
+                        className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all border cursor-pointer ${
+                            selectedThematique === t.nom 
+                                ? 'bg-emerald-600 border-emerald-600 text-white shadow-xs' 
+                                : 'bg-slate-50 border-slate-100 text-slate-700 hover:bg-slate-100/80 hover:border-slate-200'
+                        }`}
+                    >
                         {t.nom}
                     </button>
                 ))}
             </div>
 
-            <button onClick={() => handleScroll('right')} className="p-1 hover:bg-slate-105 rounded-full transition-colors text-slate-500 shrink-0">
-                <ChevronRight className="w-4 h-4" />
-            </button>
+            {/* Floating scroll right button on the right edge */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 bg-gradient-to-l from-white via-white/95 to-transparent pl-8 py-2 flex items-center">
+                <button 
+                    type="button"
+                    onClick={handleScroll} 
+                    className="w-8 h-8 rounded-full bg-white border border-slate-200 shadow-md hover:bg-slate-50 transition-all flex items-center justify-center text-slate-600 hover:text-slate-900 shrink-0 cursor-pointer"
+                    title="Faire défiler"
+                >
+                    <ChevronRight className="w-4 h-4" />
+                </button>
+            </div>
         </div>
     );
 }

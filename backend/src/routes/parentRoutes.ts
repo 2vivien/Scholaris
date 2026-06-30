@@ -9,7 +9,7 @@ import { getParentProfile, updateParentProfile } from '../controllers/parents/pr
 
 const router = Router();
 router.use(authenticateJWT);
-router.use(requireRole(['parent', 'user']));
+router.use(requireRole(['parent', 'user', 'enseignant']));
 
 router.get('/children', getMyChildren);
 router.get('/profile', getParentProfile);

@@ -5,7 +5,7 @@ export default function TopicReplyForm({ onSubmit, sending }: { onSubmit: (c: st
     const [corps, setCorps] = useState('');
     const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!corps.trim()) return;
+        if (!corps.trim() || sending) return;
         await onSubmit(corps);
         setCorps('');
     };

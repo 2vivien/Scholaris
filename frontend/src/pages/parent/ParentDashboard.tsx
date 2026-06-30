@@ -21,21 +21,31 @@ export default function ParentDashboard() {
 
     useEffect(() => {
         if (!loading && children.length === 0) {
-            if (location.pathname.startsWith('/parent')) navigate('/user/feed');
-            else if (activeTab !== 'settings') setActiveTab('settings');
+            navigate('/user/feed');
         }
-    }, [children, loading, location.pathname, activeTab]);
+    }, [children, loading, navigate]);
 
     if (loading) return <div className="flex justify-center p-20"><Loader2 className="w-8 h-8 animate-spin text-emerald-600" /></div>;
 
     return (
         <div className="min-h-screen bg-slate-50 flex">
             {needInfo && <ForceProfileConfigModal onConfigured={reload} />}
+
             <ParentSidebar logout={logout} profile={profile} activeTab={activeTab} setActiveTab={setActiveTab} />
             <div className="flex-1 flex flex-col">
-                <ParentHeader children={children} activeChild={activeChild} setActiveChild={setActiveChild} profile={profile} onLogout={logout} />
+                <ParentHeader 
+                    children={children} 
+                    activeChild={activeChild} 
+                    setActiveChild={setActiveChild} 
+                    profile={profile} 
+                    onLogout={logout} 
+                />
                 <main className="flex-1 w-full p-6 space-y-6">
-                    {isFeedRoute ? <Outlet /> : activeTab === 'settings' ? <ParentSettings profile={profile} onRefresh={reload} /> : !activeChild ? (
+                    {isFeedRoute ? (
+                        <Outlet />
+                    ) : activeTab === 'settings' ? (
+                        <ParentSettings profile={profile} onRefresh={reload} />
+                    ) : !activeChild ? (
                         <div className="text-center p-20 bg-white rounded-xl shadow-sm border border-slate-200 text-slate-500">Aucun enfant trouvé.</div>
                     ) : (
                         <>

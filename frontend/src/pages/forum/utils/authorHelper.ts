@@ -24,7 +24,7 @@ export function getAuthorDetails(auteur: Auteur) {
         badge = ''; // simple user: "quand il user simple on voit rien"
     } else if (isAdmin) {
         name = auteur.tenant?.nom || name;
-        avatar = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(name)}`;
+        avatar = (auteur.tenant as any)?.ecoles?.[0]?.logo_url || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(name)}`;
         badge = auteur.role === 'super_admin' ? 'plateforme' : 'établissement';
     }
 

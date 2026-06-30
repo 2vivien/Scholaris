@@ -30,7 +30,7 @@ export default function TopicItemHeader({ topic, onDismiss }: TopicItemHeaderPro
                 {topic.est_epingle && <Pin className="w-3.5 h-3.5 text-orange-500 fill-orange-500" />}
                 {topic.est_verrouille && <Lock className="w-3.5 h-3.5 text-slate-400" />}
                 
-                <TopicMoreMenu topicId={topic.id} />
+                <TopicMoreMenu topicId={topic.id} topicTitle={topic.titre} />
 
                 <button onClick={(e) => { e.preventDefault(); e.stopPropagation(); onDismiss(); }} className="w-6 h-6 rounded-full bg-white border border-slate-200 hover:bg-slate-50 flex items-center justify-center text-slate-500 hover:text-red-500 focus:outline-none" title="Fermer la publication">
                     <X className="w-3.5 h-3.5" />

@@ -10,7 +10,7 @@ export const getSearchSummary = async (req: Request, res: Response) => {
         const query = q as string;
         const topics = await prisma.forum_topics.findMany({
             where: {
-                tenant_id, est_supprime: false,
+                est_supprime: false,
                 OR: [
                     { titre: { contains: query, mode: 'insensitive' } },
                     { corps: { contains: query, mode: 'insensitive' } }

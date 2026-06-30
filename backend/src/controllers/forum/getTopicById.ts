@@ -7,7 +7,7 @@ export const getTopicById = async (req: Request, res: Response) => {
         const topic = await prisma.forum_topics.findUnique({
             where: { id, est_supprime: false },
             include: {
-                auteur: { select: { email: true, role: true, tenant: { select: { nom: true } }, profil_parent: { select: { username: true, photo_url: true, _count: { select: { enfants: true } } } }, profil_enseignant: { select: { username: true, photo_url: true } } } },
+                auteur: { select: { email: true, role: true, tenant: { select: { nom: true, ecoles: { select: { logo_url: true } } } }, profil_parent: { select: { username: true, photo_url: true, _count: { select: { enfants: true } } } }, profil_enseignant: { select: { username: true, photo_url: true } } } },
                 images: { select: { url: true } },
                 _count: { select: { reponses: true, reactions: true } }
             }

@@ -30,7 +30,7 @@ export function useCreateTopicController() {
         if (!file) return;
         setUploading(true);
         try {
-            const url = await uploadImageFile(file, 'forum');
+            const url = await uploadImageFile(file, 'img');
             setImageUrl(url);
         } catch (err) {
             alert("Erreur lors du téléchargement de l'image");

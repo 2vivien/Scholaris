@@ -6,6 +6,10 @@ export const updateProfile = async (req: Request, res: Response) => {
     const userId = req.user!.id;
     const role = req.user!.role;
 
+    if (role === 'user' && (username !== undefined || photo_url !== undefined)) {
+        return res.status(400).json({ error: 'Les utilisateurs simples ne peuvent pas modifier leur pseudonyme ni leur photo de profil.' });
+    }
+
     try {
         await prisma.$transaction(async (tx: any) => {
             if (langue_preference !== undefined) {

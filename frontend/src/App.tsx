@@ -29,7 +29,9 @@ import TeacherClasses    from './pages/teacher/TeacherClasses';
 import TeacherGrades     from './pages/teacher/TeacherGrades';
 import TeacherAttendance from './pages/teacher/TeacherAttendance';
 import TeacherTimetable  from './pages/teacher/TeacherTimetable';
+import TeacherParentView from './pages/teacher/TeacherParentView';
 import ParentDashboard from './pages/parent/ParentDashboard';
+import UserDashboard from './pages/user/UserDashboard';
 import ForumPage from './pages/forum/ForumPage';
 import CreateTopicPage from './pages/forum/CreateTopicPage';
 import TopicDetailPage from './pages/forum/TopicDetailPage';
@@ -63,11 +65,14 @@ function App() {
               <Route path="feed" element={<ForumPage />} />
               <Route path="feed/create" element={<CreateTopicPage />} />
               <Route path="feed/topics/:id" element={<TopicDetailPage />} />
+              <Route path="feed/topics/:id/:slug" element={<TopicDetailPage />} />
             </Route>
-            <Route path="/user" element={<ParentDashboard />}>
+            <Route path="/user" element={<UserDashboard />}>
               <Route path="feed" element={<ForumPage />} />
               <Route path="feed/create" element={<CreateTopicPage />} />
               <Route path="feed/topics/:id" element={<TopicDetailPage />} />
+              <Route path="feed/topics/:id/:slug" element={<TopicDetailPage />} />
+              <Route path="settings" />
             </Route>
           </Route>
 
@@ -98,6 +103,7 @@ function App() {
               <Route path="feed" element={<ForumPage />} />
               <Route path="feed/create" element={<CreateTopicPage />} />
               <Route path="feed/topics/:id" element={<TopicDetailPage />} />
+              <Route path="feed/topics/:id/:slug" element={<TopicDetailPage />} />
             </Route>
           </Route>
 
@@ -110,9 +116,11 @@ function App() {
               <Route path="grades/entry" element={<GradeEntryPage />} />
               <Route path="attendance"  element={<TeacherAttendance />} />
               <Route path="timetable"   element={<TeacherTimetable />} />
+              <Route path="parent"      element={<TeacherParentView />} />
               <Route path="feed" element={<ForumPage />} />
               <Route path="feed/create" element={<CreateTopicPage />} />
               <Route path="feed/topics/:id" element={<TopicDetailPage />} />
+              <Route path="feed/topics/:id/:slug" element={<TopicDetailPage />} />
             </Route>
           </Route>
         </Routes>

@@ -20,18 +20,28 @@ export const getTopics = async (req: Request, res: Response) => {
     }
 
     try {
+        const user = await prisma.utilisateurs.findUnique({
+            where: { id: req.user!.id },
+            select: { selected_themes: true }
+        });
+        const userThemes = user?.selected_themes || [];
+
+        const thematiqueFilter = thematique 
+            ? { thematique: thematique as string } 
+            : (userThemes.length > 0 ? { thematique: { in: userThemes } } : {});
+
         const topics = await prisma.forum_topics.findMany({
             where: {
-                tenant_id, est_supprime: false,
+                est_supprime: false,
                 ...dateFilter,
                 AND: [
                     search ? { OR: [{ titre: { contains: search as string, mode: 'insensitive' } }, { corps: { contains: search as string, mode: 'insensitive' } }] } : {},
                     tag ? { tags: { has: tag as string } } : {},
-                    thematique ? { thematique: thematique as string } : {}
+                    thematiqueFilter
                 ]
             },
             include: {
-                auteur: { select: { email: true, role: true, tenant: { select: { nom: true } }, profil_parent: { select: { username: true, photo_url: true, _count: { select: { enfants: true } } } }, profil_enseignant: { select: { username: true, photo_url: true } } } },
+                auteur: { select: { email: true, role: true, tenant: { select: { nom: true, ecoles: { select: { logo_url: true } } } }, profil_parent: { select: { username: true, photo_url: true, _count: { select: { enfants: true } } } }, profil_enseignant: { select: { username: true, photo_url: true } } } },
                 images: { select: { url: true } },
                 _count: { select: { reponses: true, reactions: true } }
             },

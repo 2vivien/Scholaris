@@ -15,9 +15,14 @@ export const requestPasswordReset = async (req: Request, res: Response) => {
         await prisma.utilisateurs.update({ where: { id: user.id }, data: { otp_code: otpCode, otp_expires_at: expiresAt } });
 
         const emailSent = await sendOTP(user.email, otpCode, user.email.split('@')[0]);
-        if (!emailSent) return res.status(500).json({ error: 'Erreur envoi email' });
+        if (!emailSent && process.env.NODE_ENV !== 'development') {
+            return res.status(500).json({ error: 'Erreur envoi email' });
+        }
 
-        res.json({ message: 'Code OTP envoyé avec succès' });
+        res.json({ 
+            message: 'Code OTP envoyé avec succès',
+            ...(process.env.NODE_ENV === 'development' ? { dev_otp: otpCode } : {})
+        });
     } catch (e) { res.status(500).json({ error: 'Erreur.' }); }
 };
 

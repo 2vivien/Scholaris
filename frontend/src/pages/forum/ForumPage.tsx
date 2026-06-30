@@ -19,7 +19,7 @@ export default function ForumPage() {
     return (
         <div className="min-h-screen bg-white -m-6 p-6 font-sans">
             <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-                <div className="lg:col-span-2">
+                <div className="lg:col-span-2 space-y-6">
                     {isSearchMode ? (
                         <ForumSearchResults 
                             search={search} 
@@ -36,6 +36,8 @@ export default function ForumPage() {
                         </>
                     )}
                 </div>
+                
+                {/* Affichage à droite pour ordinateur */}
                 <div className="hidden lg:block">
                     {isSearchMode ? (
                         <ForumSearchSidebar thematiques={thematiques} search={search} onSelect={setSelectedThematique} />

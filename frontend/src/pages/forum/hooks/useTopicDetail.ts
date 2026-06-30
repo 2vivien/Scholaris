@@ -28,11 +28,14 @@ export function useTopicDetail(topicId: string) {
         if (topicId) load();
     }, [topicId]);
 
-    const postReply = async (corps: string) => {
+    const postReply = async (corps: string, reponse_parent_id?: string) => {
         if (!corps.trim()) return;
-        setSending(true);
+        const isMainComment = !reponse_parent_id;
+        if (isMainComment) {
+            setSending(true);
+        }
         try {
-            await forumService.addReply(topicId, corps);
+            await forumService.addReply(topicId, corps, reponse_parent_id);
             const rData = await forumService.getReplies(topicId);
             setReponses(rData);
             const tData = await forumService.getTopic(topicId);
@@ -40,7 +43,9 @@ export function useTopicDetail(topicId: string) {
         } catch (err) {
             console.error(err);
         } finally {
-            setSending(false);
+            if (isMainComment) {
+                setSending(false);
+            }
         }
     };
 

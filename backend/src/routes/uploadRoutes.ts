@@ -5,7 +5,7 @@ import { uploadImage } from '../controllers/uploadController';
 const router = Router();
 router.use(authenticateJWT);
 
-// Upload d'image (logo école, photo élève…) — réservé à l'administration.
-router.post('/', requireRole(['super_admin', 'admin_ecole']), uploadImage);
+// Upload d'image (logo école, photo élève…) — ouvert aux utilisateurs authentifiés.
+router.post('/', requireRole(['super_admin', 'admin_ecole', 'user', 'parent', 'enseignant']), uploadImage);
 
 export default router;

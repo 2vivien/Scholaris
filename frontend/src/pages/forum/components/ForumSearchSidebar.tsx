@@ -28,7 +28,7 @@ export default function ForumSearchSidebar({ thematiques, search, onSelect }: Fo
                                 {t.nom}
                             </h5>
                             <div className="text-[9px] text-slate-400 font-semibold mt-0.5">
-                                Communauté Scholaris
+                                Communauté AcademiaTrack
                             </div>
                         </div>
                     </div>

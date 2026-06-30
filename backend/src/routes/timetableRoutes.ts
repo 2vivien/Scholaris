@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { authenticateJWT, requireRole } from '../middlewares/authMiddleware';
 import {
-    getTimetable, getTeacherTimetable,
+    getTimetable,
     createSlot, updateSlot, deleteSlot,
     getSalles, createSalle,
 } from '../controllers/timetableController';
+import { getTeacherTimetable } from '../controllers/timetable/getTeacherTimetable';
 
 const router = Router();
 router.use(authenticateJWT);

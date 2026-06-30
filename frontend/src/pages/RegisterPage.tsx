@@ -20,7 +20,7 @@ export default function RegisterPage() {
                     <div className="w-full max-w-[340px] mx-auto space-y-5">
                         <div className="text-left space-y-1">
                             <h2 className="text-xl font-black text-slate-900 tracking-tight uppercase">Créer un compte</h2>
-                            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wide">Forum AcademiaTrack</p>
+                            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-wide">Inscription AcademiaTrack</p>
                         </div>
 
                         {state.error && (

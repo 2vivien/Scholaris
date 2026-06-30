@@ -1,5 +1,4 @@
 import ParentProfileCard from './ParentProfileCard';
-import ParentSchoolUpgrade from './ParentSchoolUpgrade';
 
 interface ParentSettingsProps {
     profile: any;
@@ -8,9 +7,8 @@ interface ParentSettingsProps {
 
 export default function ParentSettings({ profile, onRefresh }: ParentSettingsProps) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-sans">
+        <div className="max-w-2xl mx-auto font-sans text-left">
             <ParentProfileCard profile={profile} onRefresh={onRefresh} />
-            <ParentSchoolUpgrade userEmail={profile?.email || ''} />
         </div>
     );
 }

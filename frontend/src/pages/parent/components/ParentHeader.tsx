@@ -11,11 +11,13 @@ interface ParentHeaderProps {
     setActiveChild: (child: any) => void;
     profile: any;
     onLogout: () => void;
+    onCreateSchool?: () => void;
 }
 
-export default function ParentHeader({ children, activeChild, setActiveChild, profile, onLogout }: ParentHeaderProps) {
+export default function ParentHeader({ children, activeChild, setActiveChild, profile, onLogout, onCreateSchool }: ParentHeaderProps) {
     const parentName = profile ? `${profile.prenom} ${profile.nom}` : 'Parent';
     const parentEmail = profile?.utilisateur?.email || '';
+    const userRole = profile?.role || 'user';
 
     return (
         <header className="bg-white border-b border-slate-200 p-4 flex justify-between items-center shadow-sm">
@@ -39,7 +41,14 @@ export default function ParentHeader({ children, activeChild, setActiveChild, pr
                 {children.length > 0 && (
                     <ChildSelector children={children} activeChild={activeChild} onChange={setActiveChild} />
                 )}
-                <ProfileDropdown userEmail={parentEmail} userName={parentName} userRole="Parent" avatarUrl={profile?.photo_url} onLogout={onLogout} />
+                <ProfileDropdown 
+                    userEmail={parentEmail} 
+                    userName={parentName} 
+                    userRole={userRole} 
+                    avatarUrl={profile?.photo_url} 
+                    onLogout={onLogout} 
+                    onCreateSchool={onCreateSchool}
+                />
             </div>
         </header>
     );

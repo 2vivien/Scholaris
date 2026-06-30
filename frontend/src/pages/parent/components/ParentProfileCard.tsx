@@ -36,7 +36,13 @@ export default function ParentProfileCard({ profile, onRefresh }: ParentProfileC
                 <img src={profile?.photo_url || '/images/default_avatar.png'} alt="Avatar" className="w-14 h-14 rounded-full border border-slate-200 object-cover bg-white" />
                 <div>
                     <div className="text-xs font-bold text-slate-800">@{profile?.username}</div>
-                    <button onClick={changeAvatar} className="mt-1 flex items-center gap-1 text-[10px] font-black text-emerald-600 hover:text-emerald-700 bg-white border border-slate-200 px-2 py-1 rounded-lg shadow-2xs cursor-pointer"><RefreshCw className="w-3 h-3" /> Changer d'avatar</button>
+                    {profile?.role === 'user' ? (
+                        <p className="text-[9px] text-amber-600 font-bold mt-1.5 leading-relaxed bg-amber-50 border border-amber-100/40 px-2 py-1 rounded-lg">
+                            Pour modifier votre pseudo ou votre avatar, veuillez passer à un plan supérieur.
+                        </p>
+                    ) : (
+                        <button onClick={changeAvatar} className="mt-1 flex items-center gap-1 text-[10px] font-black text-emerald-600 hover:text-emerald-700 bg-white border border-slate-200 px-2 py-1 rounded-lg shadow-2xs cursor-pointer"><RefreshCw className="w-3 h-3" /> Changer d'avatar</button>
+                    )}
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-3 text-xs font-semibold text-slate-650 bg-slate-50 p-4 rounded-xl border border-slate-100">

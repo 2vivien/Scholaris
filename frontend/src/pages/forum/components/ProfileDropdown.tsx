@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { LogOut } from 'lucide-react';
+import { LogOut, Shield } from 'lucide-react';
 
 interface ProfileDropdownProps {
     userEmail: string;
@@ -7,9 +7,10 @@ interface ProfileDropdownProps {
     userRole: string;
     avatarUrl?: string;
     onLogout: () => void;
+    onCreateSchool?: () => void;
 }
 
-export default function ProfileDropdown({ userEmail, userName, userRole, avatarUrl, onLogout }: ProfileDropdownProps) {
+export default function ProfileDropdown({ userEmail, userName, userRole, avatarUrl, onLogout, onCreateSchool }: ProfileDropdownProps) {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
     const avatar = avatarUrl || '/images/default_avatar.png';
@@ -40,7 +41,19 @@ export default function ProfileDropdown({ userEmail, userName, userRole, avatarU
                         <div className="text-[10px] text-slate-400 font-semibold truncate">{userEmail}</div>
                         <div className="inline-block mt-1 text-[8px] bg-slate-50 border border-slate-200 text-slate-500 px-1.5 py-0.5 rounded font-extrabold uppercase tracking-wider">{userRole}</div>
                     </div>
-                    <button onClick={onLogout} className="w-full flex items-center gap-2 pt-2 border-t border-slate-100 text-xs font-bold text-red-600 hover:text-red-700 transition-colors cursor-pointer block text-left">
+                    {userRole === 'user' && (
+                        <button 
+                            onClick={() => {
+                                setIsOpen(false);
+                                onCreateSchool?.();
+                            }}
+                            className="w-full flex items-center gap-2 pt-2.5 border-t border-slate-100 text-xs font-extrabold text-emerald-600 hover:text-emerald-700 transition-colors cursor-pointer text-left"
+                        >
+                            <Shield className="w-3.5 h-3.5 inline mr-1" />
+                            <span>Créer un établissement</span>
+                        </button>
+                    )}
+                    <button onClick={onLogout} className="w-full flex items-center gap-2 pt-2 border-t border-slate-100 text-xs font-bold text-red-600 hover:text-red-700 transition-colors cursor-pointer text-left">
                         <LogOut className="w-3.5 h-3.5 inline mr-1" />
                         <span>Se déconnecter</span>
                     </button>

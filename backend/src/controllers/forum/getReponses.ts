@@ -7,7 +7,7 @@ export const getReponses = async (req: Request, res: Response) => {
         const reponses = await prisma.forum_reponses.findMany({
             where: { topic_id, est_supprime: false },
             include: {
-                auteur: { select: { email: true, role: true, tenant: { select: { nom: true } }, profil_parent: { select: { username: true, photo_url: true } }, profil_enseignant: { select: { username: true, photo_url: true } } } }
+                auteur: { select: { email: true, role: true, tenant: { select: { nom: true, ecoles: { select: { logo_url: true } } } }, profil_parent: { select: { username: true, photo_url: true } }, profil_enseignant: { select: { username: true, photo_url: true } } } }
             },
             orderBy: { created_at: 'asc' }
         });

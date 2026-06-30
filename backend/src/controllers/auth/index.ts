@@ -5,3 +5,4 @@ export { requestPasswordReset, resetPasswordWithOTP } from './password';
 export { getEtablissementsDisponibles } from './mySchools';
 export { verifyOtp } from './verifyOtp';
 export { switchSchool } from './switchSchool';
+export { requestUpgradeOtp, verifyUpgradeOtp } from './upgradeSchool';

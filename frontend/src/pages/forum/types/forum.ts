@@ -4,6 +4,9 @@ export interface Auteur {
     role: 'parent' | 'enseignant' | 'admin' | 'admin_ecole' | 'super_admin' | 'user';
     tenant?: {
         nom: string;
+        ecoles?: {
+            logo_url?: string;
+        }[];
     };
     profil_parent?: {
         username: string;

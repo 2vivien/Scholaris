@@ -6,7 +6,7 @@ import {
     Users, GraduationCap, Wallet, Calendar, Settings, Bell,
     LogOut, LayoutDashboard, BookOpen, Layers, UserCheck, Menu, X,
     ClipboardList, TrendingUp, AlertCircle, CheckCircle2, Loader2,
-    CreditCard, ArrowUpRight, Clock, MessageSquare, Search, Plus, ChevronDown,
+    CreditCard, ArrowUpRight, Clock, MessageSquare, Search, Plus, ChevronDown, Flame,
 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import api from '../../lib/api';
@@ -39,6 +39,13 @@ const SchoolDashboard = () => {
     const [mobileOpen, setMobileOpen] = useState(false);
     const [profileOpen, setProfileOpen] = useState(false);
     const [isCollapsed, setIsCollapsed] = useState(() => localStorage.getItem('sidebar_collapsed') === 'true');
+    const [schoolSettings, setSchoolSettings] = useState<any>(null);
+
+    useEffect(() => {
+        api.get('/api/settings/school')
+            .then(res => setSchoolSettings(res.data))
+            .catch(err => console.error('Erreur chargement paramètres école:', err));
+    }, []);
 
     const toggleSidebar = () => {
         const val = !isCollapsed;
@@ -47,7 +54,7 @@ const SchoolDashboard = () => {
     };
 
     const initial = user?.email?.[0]?.toUpperCase() ?? 'A';
-    const schoolName = user?.tenant_name ?? 'Mon Établissement';
+    const schoolName = schoolSettings?.ecole?.nom || user?.tenant_name || 'Mon Établissement';
 
     return (
         <div className="flex min-h-screen bg-slate-50 font-sans">
@@ -84,48 +91,67 @@ const SchoolDashboard = () => {
 
                 {/* Nav */}
                 <nav className="flex-1 overflow-y-auto no-scrollbar py-4 px-3 space-y-0.5">
-                    {NAV_ITEMS.map(({ icon: Icon, label, path, disabled }) => {
-                        const isActive = disabled
-                            ? false
-                            : path === '/ecole-dashboard'
-                                ? location.pathname === path
-                                : location.pathname.startsWith(path);
+                    {(() => {
+                        const fullItems: any[] = [];
+                        NAV_ITEMS.forEach(item => {
+                            fullItems.push(item);
+                            if (item.label === 'Feed') {
+                                fullItems.push({ icon: Flame, label: 'Populaire', path: '/ecole-dashboard/feed?sortBy=best' });
+                                fullItems.push({ icon: Clock, label: 'Nouveau', path: '/ecole-dashboard/feed?sortBy=new' });
+                            }
+                        });
+                        return fullItems.map(({ icon: Icon, label, path, disabled }) => {
+                            const isSortByBest = path.includes('sortBy=best');
+                            const isSortByNew = path.includes('sortBy=new');
+                            
+                            const isActive = isSortByBest
+                                ? location.pathname.startsWith('/ecole-dashboard/feed') && (new URLSearchParams(location.search).get('sortBy') || 'best') === 'best' && location.search.includes('sortBy')
+                                : isSortByNew
+                                    ? location.pathname.startsWith('/ecole-dashboard/feed') && new URLSearchParams(location.search).get('sortBy') === 'new'
+                                    : path === '/ecole-dashboard/feed'
+                                        ? location.pathname.startsWith('/ecole-dashboard/feed') && !location.search.includes('sortBy')
+                                        : disabled
+                                            ? false
+                                            : path === '/ecole-dashboard'
+                                                ? location.pathname === path
+                                                : location.pathname.startsWith(path);
 
-                        if (disabled) {
+                            if (disabled) {
+                                return (
+                                    <div
+                                        key={path}
+                                        className={`flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 cursor-not-allowed ${isCollapsed ? 'justify-center' : ''}`}
+                                        title={isCollapsed ? `${label} (Bientôt)` : ''}
+                                    >
+                                        <Icon className="w-4 h-4 shrink-0" />
+                                        {!isCollapsed && <span className="text-sm font-medium">{label}</span>}
+                                        {!isCollapsed && (
+                                            <span className="ml-auto text-[9px] font-bold uppercase tracking-wider text-slate-300 bg-slate-100 px-1.5 py-0.5 rounded">
+                                                Bientôt
+                                            </span>
+                                        )}
+                                    </div>
+                                );
+                            }
+
                             return (
-                                <div
+                                <Link
                                     key={path}
-                                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 cursor-not-allowed ${isCollapsed ? 'justify-center' : ''}`}
-                                    title={isCollapsed ? `${label} (Bientôt)` : ''}
+                                    to={path}
+                                    onClick={() => setMobileOpen(false)}
+                                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                                        isActive
+                                            ? 'bg-emerald-50 text-emerald-700 font-semibold'
+                                            : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+                                    } ${isCollapsed ? 'justify-center' : ''}`}
+                                    title={isCollapsed ? label : ''}
                                 >
-                                    <Icon className="w-4 h-4 shrink-0" />
-                                    {!isCollapsed && <span className="text-sm font-medium">{label}</span>}
-                                    {!isCollapsed && (
-                                        <span className="ml-auto text-[9px] font-bold uppercase tracking-wider text-slate-300 bg-slate-100 px-1.5 py-0.5 rounded">
-                                            Bientôt
-                                        </span>
-                                    )}
-                                </div>
+                                    <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-emerald-600' : ''}`} />
+                                    {!isCollapsed && <span className="transition-all duration-200">{label}</span>}
+                                </Link>
                             );
-                        }
-
-                        return (
-                            <Link
-                                key={path}
-                                to={path}
-                                onClick={() => setMobileOpen(false)}
-                                className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                                    isActive
-                                        ? 'bg-emerald-50 text-emerald-700 font-semibold'
-                                        : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                                } ${isCollapsed ? 'justify-center' : ''}`}
-                                title={isCollapsed ? label : ''}
-                            >
-                                <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-emerald-600' : ''}`} />
-                                {!isCollapsed && <span className="transition-all duration-200">{label}</span>}
-                            </Link>
-                        );
-                    })}
+                        });
+                    })()}
                 </nav>
 
                 {/* Floating Toggle Button positioned at the top of the sidebar's right border */}
@@ -176,7 +202,7 @@ const SchoolDashboard = () => {
                                 className="flex items-center gap-1 p-1 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none shrink-0"
                             >
                                 <img 
-                                    src="/images/default_avatar.png" 
+                                    src={schoolSettings?.ecole?.logo_url || '/images/default_avatar.png'} 
                                     alt="Avatar" 
                                     className="w-8 h-8 rounded-full border border-slate-200 object-cover bg-slate-100" 
                                 />
@@ -184,10 +210,17 @@ const SchoolDashboard = () => {
                             </button>
                             
                             {profileOpen && (
-                                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 z-50 py-1.5 text-left">
-                                    <div className="px-4 py-2 border-b border-slate-100">
-                                        <p className="text-xs font-semibold text-slate-900 truncate">admin.demo@sholaris.demo</p>
-                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Admin École</p>
+                                <div className="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-200 z-50 py-1.5 text-left font-sans">
+                                    <div className="px-4 py-2.5 border-b border-slate-100">
+                                        <p className="text-xs font-black text-slate-800 truncate leading-tight">
+                                            {schoolSettings?.ecole?.nom || user?.tenant_name || 'Mon Établissement'}
+                                        </p>
+                                        <p className="text-[10px] text-slate-400 font-bold truncate mt-0.5">
+                                            {user?.email}
+                                        </p>
+                                        <span className="inline-block mt-1.5 text-[8px] font-black uppercase tracking-widest text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded">
+                                            Admin École
+                                        </span>
                                     </div>
                                     <Link 
                                         to="/ecole-dashboard/settings" 
@@ -199,7 +232,7 @@ const SchoolDashboard = () => {
                                     </Link>
                                     <button 
                                         onClick={() => { setProfileOpen(false); logout(); }}
-                                        className="flex items-center gap-2.5 w-full px-4 py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors border-t border-slate-100 mt-1"
+                                        className="flex items-center gap-2.5 w-full px-4 py-2 text-xs font-semibold text-red-650 hover:bg-red-50 transition-colors border-t border-slate-100 mt-1"
                                     >
                                         <LogOut className="w-4 h-4 text-red-400" />
                                         <span>Déconnexion</span>

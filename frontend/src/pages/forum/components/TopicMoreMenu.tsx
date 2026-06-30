@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { MoreHorizontal, AlertTriangle } from 'lucide-react';
+import { MoreHorizontal, AlertTriangle, Link2 } from 'lucide-react';
 import { forumService } from '../services/forumService';
 
 interface TopicMoreMenuProps {
     topicId: string;
+    topicTitle: string;
 }
 
-export default function TopicMoreMenu({ topicId }: TopicMoreMenuProps) {
+export default function TopicMoreMenu({ topicId, topicTitle }: TopicMoreMenuProps) {
     const [isOpen, setIsOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement>(null);
 
@@ -19,6 +20,34 @@ export default function TopicMoreMenu({ topicId }: TopicMoreMenuProps) {
         document.addEventListener('mousedown', handler);
         return () => document.removeEventListener('mousedown', handler);
     }, []);
+
+    const slugify = (text: string) => {
+        return text
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/(^-|-$)+/g, '');
+    };
+
+    const handleCopyLink = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsOpen(false);
+
+        const currentPath = window.location.pathname;
+        let base = '/user';
+        if (currentPath.startsWith('/parent')) base = '/parent';
+        else if (currentPath.startsWith('/prof')) base = '/prof';
+        else if (currentPath.startsWith('/ecole-dashboard')) base = '/ecole-dashboard';
+
+        const slug = slugify(topicTitle);
+        const url = `${window.location.origin}${base}/feed/topics/${topicId}/${slug}`;
+
+        navigator.clipboard.writeText(url)
+            .then(() => alert('Lien de la publication copié !'))
+            .catch(() => alert('Impossible de copier le lien.'));
+    };
 
     const handleReport = async (e: React.MouseEvent) => {
         e.preventDefault();
@@ -39,8 +68,12 @@ export default function TopicMoreMenu({ topicId }: TopicMoreMenuProps) {
                 <MoreHorizontal className="w-4 h-4" />
             </button>
             {isOpen && (
-                <div className="absolute right-0 mt-1 w-32 bg-white rounded-lg shadow-lg border border-slate-200 z-50 py-1 text-left">
-                    <button onClick={handleReport} className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-red-650 hover:bg-slate-50 transition-colors">
+                <div className="absolute right-0 mt-1 w-36 bg-white rounded-lg shadow-lg border border-slate-200 z-50 py-1 text-left">
+                    <button onClick={handleCopyLink} className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors">
+                        <Link2 className="w-3.5 h-3.5 text-slate-500" />
+                        <span>Copier le lien</span>
+                    </button>
+                    <button onClick={handleReport} className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-red-650 hover:bg-slate-50 transition-colors border-t border-slate-100">
                         <AlertTriangle className="w-3.5 h-3.5 text-red-500" />
                         <span>Signaler</span>
                     </button>

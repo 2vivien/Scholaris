@@ -4,11 +4,19 @@ import { useForumTopics } from './useForumTopics';
 import { forumService } from '../services/forumService';
 
 export function useForumPageController() {
-    const [searchParams] = useSearchParams();
+    const [searchParams, setSearchParams] = useSearchParams();
     const search = searchParams.get('q') || '';
+    const urlSort = searchParams.get('sortBy') || 'best';
     const [selectedThematique, setSelectedThematique] = useState('');
     const [isGridView, setIsGridView] = useState(false);
-    const [sortBy, setSortBy] = useState('best'); // 'best' | 'new' | 'hot'
+    
+    const sortBy = ['best', 'new', 'hot'].includes(urlSort) ? urlSort : 'best';
+    const setSortBy = (val: string) => {
+        const newParams = new URLSearchParams(searchParams);
+        newParams.set('sortBy', val);
+        setSearchParams(newParams);
+    };
+    
     const { topics, loading, toggleLike, likedIds } = useForumTopics(search, '', selectedThematique, sortBy, '');
     const [thematiques, setThematiques] = useState<{ id: number; nom: string }[]>([]);
     const [searchTab, setSearchTab] = useState('Tout');
