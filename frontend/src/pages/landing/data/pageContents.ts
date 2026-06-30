@@ -213,6 +213,99 @@ export const pageContents: Record<string, DocSection[]> = {
         "Parce qu'un élève épanoui apprend mieux, cet espace aborde la santé physique et mentale. Il encourage le dialogue sur la gestion du stress à l'approche des examens, l'importance du sport, de l'alimentation, et la prévention face au harcèlement scolaire."
       ] 
     }
+  ],
+  "/ressources/aide": [
+    { 
+      title: "Votre Centre d'Assistance Unifié", 
+      content: [
+        "Le Centre d'aide est votre point de départ pour trouver des réponses rapides. Que vous soyez parent, enseignant ou membre de l'administration, la barre de recherche intelligente vous permet de trouver instantanément la solution à votre problème.",
+        "Les ressources sont classées par profil pour vous faire gagner du temps : espace facturation pour les parents, gestion des emplois du temps pour les enseignants, et paramétrages globaux pour la direction."
+      ] 
+    },
+    { 
+      title: "Contacter le support humain", 
+      content: [
+        "Si vous ne trouvez pas la réponse à votre question dans nos articles, notre équipe d'assistance éducative est à votre disposition. Vous pouvez ouvrir un ticket de support directement depuis votre tableau de bord, et nous vous répondrons dans les plus brefs délais."
+      ] 
+    }
+  ],
+  "/ressources/documentation": [
+    { 
+      title: "Une encyclopédie des fonctionnalités", 
+      content: [
+        "La documentation complète d'AcademiaTrack couvre absolument tous les aspects de la plateforme scolaire. Chaque module (Notes, Absences, Emplois du temps, Finances) y est détaillé avec des captures d'écran et des explications claires.",
+        "Cette section est idéale pour les nouveaux directeurs d'établissement qui souhaitent maîtriser la plateforme à 100% et former leurs équipes pédagogiques."
+      ] 
+    }
+  ],
+  "/ressources/guides": [
+    { 
+      title: "Guides pas-à-pas pour la rentrée", 
+      content: [
+        "Les Guides de démarrage sont conçus pour vous accompagner lors de vos premières semaines sur AcademiaTrack. Ils vous montrent dans quel ordre configurer votre école :",
+        "1. Créer l'établissement et l'année scolaire.",
+        "2. Ajouter les salles et les classes.",
+        "3. Inscrire les enseignants et générer les emplois du temps.",
+        "4. Importer les dossiers des élèves et inviter les parents.",
+        "Suivez simplement ces étapes pour une rentrée scolaire numérique parfaite."
+      ] 
+    }
+  ],
+  "/ressources/tutoriels": [
+    { 
+      title: "Apprendre par la vidéo", 
+      content: [
+        "Parce qu'une démonstration visuelle vaut mille mots, notre espace Tutoriels propose des courtes vidéos de 2 à 5 minutes.",
+        "Apprenez comment saisir les notes d'une classe entière en quelques clics, comment justifier l'absence de votre enfant depuis votre smartphone, ou comment publier un compte-rendu de réunion sur le forum de l'école."
+      ] 
+    }
+  ],
+  "/ressources/faq": [
+    { 
+      title: "Questions Fréquemment Posées", 
+      content: [
+        "La FAQ compile les questions les plus courantes de notre communauté éducative.",
+        "• 'J'ai plusieurs enfants dans des écoles différentes, comment faire ?' (Réponse : Votre compte consolidera tout automatiquement !)",
+        "• 'Que se passe-t-il si j'oublie mon mot de passe ?' (Réponse : Il n'y en a pas ! Vous recevrez toujours un code de sécurité par email).",
+        "• 'Comment corriger une note validée par erreur ?' (Réponse : Seul le directeur des études peut déverrouiller une période clôturée)."
+      ] 
+    }
+  ],
+  "/ressources/changelog": [
+    { 
+      title: "Le journal des Nouveautés", 
+      content: [
+        "AcademiaTrack évolue constamment pour répondre aux besoins des écoles. Le Changelog liste toutes les nouvelles fonctionnalités ajoutées chaque mois.",
+        "Consultez cette page pour découvrir les nouveaux rapports statistiques, les améliorations de l'application mobile, ou les nouveaux filtres ajoutés au forum. Vous êtes toujours au courant des dernières innovations de votre outil de travail."
+      ] 
+    }
+  ],
+  "/ressources/roadmap": [
+    { 
+      title: "Notre vision pour le futur (Roadmap)", 
+      content: [
+        "Nous construisons l'éducation de demain en toute transparence avec vous. La Feuille de route dévoile les fonctionnalités sur lesquelles nos équipes travaillent actuellement et ce qui arrivera dans les prochains mois.",
+        "Vous pouvez même y suggérer des idées ou voter pour les fonctionnalités dont votre établissement a le plus besoin (comme de nouvelles méthodes de paiement Mobile Money, ou des modules de bibliothèque)."
+      ] 
+    }
+  ],
+  "/ressources/status": [
+    { 
+      title: "Transparence et disponibilité des services", 
+      content: [
+        "L'État des services (Status) vous permet de vérifier en temps réel que tous les systèmes d'AcademiaTrack fonctionnent parfaitement.",
+        "Si vous rencontrez une lenteur ou que vos emails mettent du temps à arriver, vérifiez cette page : elle vous indiquera si une maintenance est en cours sur nos serveurs de calcul des bulletins ou sur notre plateforme d'envoi d'emails sécurisés."
+      ] 
+    }
+  ],
+  "/ressources/downloads": [
+    { 
+      title: "Applications Mobiles et Documents Utiles", 
+      content: [
+        "Emportez votre école partout avec vous ! Sur cette page, vous trouverez les liens officiels pour télécharger nos applications mobiles gratuites (Android et iOS).",
+        "Pour l'administration, cet espace permet également de télécharger les guides d'utilisation au format PDF (pour les imprimer en salle des professeurs), ainsi que des modèles vierges au format Excel pour faciliter l'importation massive des élèves lors de la rentrée."
+      ] 
+    }
   ]
 };
 
