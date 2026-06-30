@@ -453,6 +453,150 @@ export const pageContents: Record<string, DocSection[]> = {
         "Pour l'administration, cet espace permet également de télécharger les guides d'utilisation au format PDF (pour les imprimer en salle des professeurs), ainsi que des modèles vierges au format Excel pour faciliter l'importation massive des élèves lors de la rentrée."
       ] 
     }
+  ],
+  "/legal/cgu": [
+    { title: "Conditions Générales d'Utilisation", content: ["Les CGU définissent le cadre légal de l'utilisation d'AcademiaTrack. En vous connectant, vous acceptez de maintenir la confidentialité de vos accès (codes OTP) et de ne pas tenter de contourner les restrictions de sécurité.", "Les écoles s'engagent à utiliser la messagerie interne uniquement pour des communications scolaires officielles."] }
+  ],
+  "/legal/cgv": [
+    { title: "Conditions Générales de Vente", content: ["Ces conditions s'appliquent aux fondateurs d'établissements souscrivant à nos offres SaaS.", "Elles détaillent le cycle de facturation (mensuel/annuel), les conditions de reconduction tacite, ainsi que les modalités de résiliation et d'exportation des données scolaires en cas de fin de contrat."] }
+  ],
+  "/legal/confidentialite": [
+    { title: "Engagement de Confidentialité Absolu", content: ["La protection des mineurs est notre priorité absolue. AcademiaTrack s'engage formellement à ne JAMAIS revendre, louer ou exploiter à des fins publicitaires les données de vos élèves (noms, notes, adresses).", "Toutes les données sont strictement isolées par établissement (Multi-Tenant)."] }
+  ],
+  "/legal/cookies": [
+    { title: "Politique Zéro Traçage Publicitaire", content: ["Nous utilisons uniquement des cookies 'Strictement Nécessaires' pour maintenir votre session active et mémoriser vos préférences d'affichage (Thème sombre/clair).", "Nous n'utilisons aucun traceur publicitaire tiers. Votre navigation reste totalement privée."] }
+  ],
+  "/legal/accessibilite": [
+    { title: "Une plateforme pour tous", content: ["Nous concevons nos interfaces pour qu'elles soient lisibles par les lecteurs d'écran (pour les parents malvoyants) et nous respectons les standards de contraste des couleurs.", "L'éducation doit être accessible à chaque famille, sans barrière technologique ou physique."] }
+  ],
+  "/legal/mentions-legales": [
+    { title: "Mentions Légales", content: ["Retrouvez ici toutes les informations sur la société éditrice d'AcademiaTrack : Raison sociale, numéro d'immatriculation au registre du commerce, capital social et coordonnées du directeur de la publication.", "Nous hébergeons vos données sur des serveurs sécurisés certifiés (ex: AWS/GCP)."] }
+  ],
+  "/legal/licence": [
+    { title: "Licences et Droits", content: ["AcademiaTrack est un logiciel propriétaire. Toute tentative de rétro-ingénierie (reverse engineering) ou de copie de notre code source est strictement interdite par la loi sur la propriété intellectuelle."] }
+  ],
+  "/legal/propriete-intellectuelle": [
+    { title: "Propriété de vos contenus", content: ["L'école reste l'unique propriétaire intellectuelle de tout le contenu pédagogique (cours, exercices, évaluations) uploadé sur la plateforme.", "AcademiaTrack n'agit qu'en tant qu'hébergeur technique de votre savoir."] }
+  ],
+  "/legal/moderation-forum": [
+    { title: "Politique de Modération Stricte", content: ["Pour maintenir un environnement éducatif sain, tout contenu publié sur le forum peut être signalé.", "Les administrateurs de l'école ont le pouvoir de supprimer instantanément un message inapproprié et de suspendre temporairement l'accès au forum d'un utilisateur fautif."] }
+  ],
+  "/legal/regles-communaute": [
+    { title: "Les 5 règles d'or de notre communauté", content: ["1. Respect mutuel : Aucune insulte ne sera tolérée.", "2. Constructivité : Les critiques doivent faire avancer l'école.", "3. Confidentialité : Ne partagez pas publiquement les notes d'un élève.", "4. Laïcité et Neutralité : Le forum est un espace apolitique.", "5. Entraide : Privilégiez toujours la bienveillance."] }
+  ],
+  "/legal/charte-utilisation": [
+    { title: "Charte de bon usage de l'outil informatique", content: ["Cette charte est signée numériquement par chaque professeur et parent lors de leur première connexion.", "Elle rappelle les principes de courtoisie dans la messagerie privée et l'interdiction de partager des documents piratés dans l'espace Ressources."] }
+  ],
+  "/securite/standards": [
+    { title: "Infrastructure de Classe Militaire", content: ["Nos serveurs sont protégés par des pare-feux de nouvelle génération (WAF) bloquant les attaques DDoS.", "L'architecture est redondante : si un serveur tombe en panne, un autre prend le relais en quelques millisecondes sans aucune interruption de service pour l'école."] }
+  ],
+  "/securite/protection-donnees": [
+    { title: "Chiffrement de bout en bout", content: ["Vos mots de passe n'existent pas : nous utilisons des OTP. Les données sensibles en base de données (informations médicales, numéros de téléphone) sont chiffrées avec l'algorithme AES-256.", "Même nos propres ingénieurs ne peuvent pas lire les conversations privées entre un parent et un professeur."] }
+  ],
+  "/securite/sauvegardes": [
+    { title: "Sauvegardes Automatiques et Multiples", content: ["Ne craignez plus de perdre un trimestre entier de notes !", "La base de données d'AcademiaTrack est sauvegardée automatiquement toutes les 6 heures, et ces sauvegardes sont répliquées sur des centres de données géographiquement distants pour survivre à toute catastrophe."] }
+  ],
+  "/securite/disponibilite": [
+    { title: "Engagement de Disponibilité (SLA 99.9%)", content: ["Nous garantissons contractuellement que la plateforme sera en ligne 99.9% du temps.", "Les rares maintenances techniques sont toujours planifiées la nuit (entre 2h et 5h du matin) ou pendant les vacances scolaires pour ne jamais perturber la saisie des présences."] }
+  ],
+  "/securite/signaler-faille": [
+    { title: "Programme de divulgation responsable", content: ["Si vous êtes un expert en cybersécurité et que vous avez identifié une vulnérabilité potentielle sur AcademiaTrack, utilisez ce canal sécurisé pour nous contacter.", "Nous récompensons les signalements éthiques qui nous aident à protéger les millions de données scolaires que nous gérons."] }
+  ],
+  "/securite/trust-center": [
+    { title: "Centre de Confiance et Conformité", content: ["Téléchargez nos rapports d'audits de sécurité indépendants, nos certifications (SOC2, ISO 27001) et nos fiches de conformité pour rassurer l'inspection académique de votre pays sur la robustesse de notre solution."] }
+  ],
+  "/entreprise/a-propos": [
+    { title: "L'Histoire d'AcademiaTrack", content: ["Née du constat que les écoles perdaient un temps précieux dans des tâches administratives répétitives (calcul de moyennes, impression de reçus), AcademiaTrack a été créée par des passionnés de technologie et d'éducation.", "Notre objectif : remettre la technologie au service de l'humain."] }
+  ],
+  "/entreprise/mission": [
+    { title: "Notre Mission : Digitaliser l'Excellence", content: ["Nous croyons que l'éducation est le pilier de la société.", "Notre mission est de fournir aux établissements scolaires, quelle que soit leur taille ou leur budget, les outils numériques les plus avancés au monde pour favoriser la réussite de chaque élève."] }
+  ],
+  "/entreprise/carrieres": [
+    { title: "Rejoignez l'équipe AcademiaTrack !", content: ["Vous êtes développeur, designer, ou ancien directeur d'école ? Nous recrutons !", "Découvrez nos offres d'emploi, notre culture du télétravail, et venez participer à la création du logiciel qui transforme l'éducation à l'échelle mondiale."] }
+  ],
+  "/entreprise/blog": [
+    { title: "Blog et Actualités Éducatives", content: ["Lisez nos articles rédigés par des experts en pédagogie.", "Découvrez des études de cas sur la façon dont certaines écoles ont réduit de 80% le retard de paiement des scolarités grâce à notre système d'alerte, ou comment l'absentéisme a chuté grâce à l'implication des parents sur l'application."] }
+  ],
+  "/entreprise/presse": [
+    { title: "Espace Presse et Kit Média", content: ["Journalistes et blogueurs, retrouvez ici nos communiqués de presse officiels, nos logos en haute définition, et des captures d'écran de l'application libres de droits pour illustrer vos articles sur la EdTech."] }
+  ],
+  "/entreprise/contact": [
+    { title: "Nous contacter (Bureaux)", content: ["Retrouvez les adresses physiques de nos bureaux, nos numéros de téléphone corporatifs et les emails directs pour les demandes de partenariats commerciaux ou institutionnels."] }
+  ],
+  "/communaute/forum": [
+    { title: "Le Forum d'Entraide AcademiaTrack", content: ["Un espace exclusif où les directeurs de toutes les écoles utilisant AcademiaTrack peuvent échanger entre eux !", "Partagez vos méthodes pour organiser la rentrée, demandez des conseils sur la gestion des conflits, et créez un véritable réseau de directeurs innovants."] }
+  ],
+  "/communaute/home": [
+    { title: "Bienvenue dans la Communauté", content: ["En choisissant AcademiaTrack, vous ne rejoignez pas seulement un logiciel, vous intégrez une communauté globale d'éducateurs passionnés.", "Participez à nos tables rondes virtuelles et co-construisons ensemble l'école de demain."] }
+  ],
+  "/communaute/evenements": [
+    { title: "Webinaires et Masterclasses", content: ["Inscrivez-vous gratuitement à nos événements en ligne (Lives).", "Nos experts vous y dévoileront les fonctionnalités cachées de la plateforme, ou inviteront des spécialistes de l'éducation pour parler de sujets forts comme la lutte contre le harcèlement scolaire."] }
+  ],
+  "/communaute/ambassadeurs": [
+    { title: "Devenez Ambassadeur Certifié", content: ["Vous maîtrisez AcademiaTrack sur le bout des doigts ? Postulez au programme Ambassadeur !", "Gagnez des certifications officielles, accédez aux nouveautés en avant-première, et représentez notre solution lors d'événements éducatifs dans votre région."] }
+  ],
+  "/communaute/temoignages": [
+    { title: "Ils nous font confiance (Success Stories)", content: ["Lisez les témoignages poignants de directeurs d'écoles, de parents soulagés et de professeurs gagnant 3 heures par semaine sur le calcul des notes.", "Des cas concrets qui prouvent l'impact réel d'une bonne digitalisation."] }
+  ],
+  "/communaute/suggestions": [
+    { title: "Boîte à Suggestions (Feature Requests)", content: ["AcademiaTrack est construit POUR vous, PAR vous.", "Soumettez vos idées de nouvelles fonctionnalités (ex: Intégration Zoom, Module Bibliothèque). La communauté vote pour les meilleures idées, et notre équipe de développeurs les intègre prioritairement dans les prochaines mises à jour !"] }
+  ],
+  "/support/contact": [
+    { title: "Assistance et Formulaire de Contact", content: ["Besoin d'aide immédiate ? Utilisez notre formulaire intelligent. En fonction du mot-clé de votre problème (ex: 'Bulletin', 'Facture'), il vous suggérera le bon tutoriel avant même que vous n'envoyiez le message !"] }
+  ],
+  "/support/assistance": [
+    { title: "Base de Connaissances Technique", content: ["Une immense bibliothèque d'articles détaillant les cas complexes : Comment fusionner deux profils parents créés par erreur ? Comment annuler une tranche de paiement validée ? Comment exporter les notes vers le ministère ?", "Tout y est expliqué pas-à-pas."] }
+  ],
+  "/support/ticket": [
+    { title: "Suivi des Tickets d'Incidents", content: ["Pour les problèmes nécessitant l'intervention de nos techniciens, ouvrez un ticket d'incident depuis votre tableau de bord.", "Vous pourrez y joindre des captures d'écran, discuter directement avec notre équipe de support niveau 2, et suivre la résolution en temps réel."] }
+  ],
+  "/support/chat": [
+    { title: "Support en Direct (Live Chat)", content: ["Bloqué pendant la génération des emplois du temps ? Cliquez sur la bulle en bas à droite de votre écran !", "Nos conseillers sont disponibles en direct du lundi au vendredi (8h-18h) pour débloquer votre situation instantanément."] }
+  ],
+  "/support/whatsapp": [
+    { title: "Ligne d'Urgence WhatsApp", content: ["Parce que nous savons que la connexion internet des écoles peut parfois être capricieuse, nous avons mis en place une ligne de support d'urgence sur WhatsApp.", "Prenez simplement une photo de votre écran avec votre téléphone, envoyez-la nous, et nous vous aidons à distance !"] }
+  ],
+  "/support/email": [
+    { title: "Support par Courriel", content: ["Pour les demandes moins urgentes ou les questions commerciales (upgrade d'abonnement, ajout de nouveaux modules), vous pouvez contacter notre support global par email. Nous garantissons une première réponse en moins de 24 heures ouvrées."] }
+  ],
+  "/apps/android": [
+    { title: "Application Android (Parents & Profs)", content: ["Téléchargez l'application officielle AcademiaTrack sur le Google Play Store.", "Recevez des notifications Push instantanées quand votre enfant est absent ou quand une note est publiée. Profitez du mode hors-ligne pour consulter l'emploi du temps même sans connexion internet !"] }
+  ],
+  "/apps/ios": [
+    { title: "Application iOS (iPhone / iPad)", content: ["Optimisée pour l'écosystème Apple, notre application iOS offre une navigation ultra-fluide.", "Synchronisez automatiquement l'emploi du temps de vos enfants avec votre Calendrier Apple et déverrouillez l'application avec FaceID pour une sécurité maximale."] }
+  ],
+  "/apps/windows": [
+    { title: "Logiciel Windows pour l'Administration", content: ["Idéal pour le secrétariat et l'équipe financière ! Ce client lourd permet de gérer de grands volumes de données (imports Excel massifs de centaines d'élèves) de manière beaucoup plus rapide qu'un navigateur web.", "Il se connecte directement à vos imprimantes de caisse pour l'édition de reçus."] }
+  ],
+  "/apps/macos": [
+    { title: "Application macOS", content: ["Retrouvez toute la puissance du logiciel de gestion administrative sur votre Mac.", "Profitez des raccourcis clavier natifs, de la gestion du multi-fenêtrage pour comparer l'emploi du temps de deux professeurs, et du mode sombre intégré au système d'exploitation."] }
+  ],
+  "/paiements/abonnements": [
+    { title: "Gérez l'Abonnement de votre École", content: ["C'est ici que les fondateurs gèrent leur licence AcademiaTrack.", "Ajoutez des modules supplémentaires (ex: Module Bibliothèque, Module SMS), mettez à jour votre carte bancaire de facturation, et suivez votre quota de stockage de fichiers sur la plateforme."] }
+  ],
+  "/paiements/factures": [
+    { title: "Vos Factures AcademiaTrack", content: ["Retrouvez et téléchargez en PDF l'historique complet de toutes les factures liées à l'utilisation de notre logiciel SaaS.", "Ces documents sont conformes aux normes comptables internationales pour faciliter le travail de votre comptable."] }
+  ],
+  "/paiements/historique": [
+    { title: "Historique des Transactions (Parents)", content: ["Le parent peut consulter, année après année, la liste exhaustive de tous les paiements effectués pour la scolarité de ses enfants.", "Un tableau de bord clair indique ce qui a été payé, ce qui est en retard, et le solde restant à régler pour solder l'année."] }
+  ],
+  "/paiements/moyens-paiement": [
+    { title: "Paiements Dématérialisés : Mobile Money et Cartes", content: ["Fini les longues files d'attente à l'intendance ! Les écoles peuvent activer le paiement par Mobile Money (Orange Money, MTN, Moov) ou par Carte Bancaire.", "Le parent paie depuis son canapé à 22h, et l'école reçoit l'argent automatiquement sur son compte bancaire avec une réconciliation instantanée sur le dossier de l'élève !"] }
+  ],
+  "/paiements/remboursements": [
+    { title: "Politique de Remboursement et Avoirs", content: ["Si un élève quitte l'établissement en cours d'année ou si une avance trop importante a été versée, l'administration peut générer une 'Note de crédit' (Avoir) ou procéder à un remboursement direct.", "La plateforme assure la traçabilité comptable parfaite de cette opération inverse."] }
+  ],
+  "/help/parents": [
+    { title: "Le Guide Ultime pour les Parents", content: ["Ce hub est spécialement conçu pour les familles.", "Apprenez en 3 minutes comment justifier l'absence médicale de votre enfant, où trouver le relevé de notes officiel, comment contacter le professeur principal via la messagerie sécurisée, ou comment payer la pension scolaire via Mobile Money depuis votre téléphone."] }
+  ],
+  "/help/enseignants": [
+    { title: "Le Quartier Général des Professeurs", content: ["Enseignants, gagnez du temps !", "Découvrez nos tutoriels pour faire l'appel numérique en moins de 30 secondes, pour utiliser la 'Grille interactive' pour saisir 50 notes d'affilée sans utiliser la souris, et comment bloquer temporairement la messagerie pendant le week-end pour garantir votre droit à la déconnexion."] }
+  ],
+  "/help/etablissements": [
+    { title: "Le Manuel d'Administration", content: ["Directeurs, Proviseurs et Intendants : cette section est pour vous.", "Maîtrisez la configuration de votre école : de la création des classes et l'assignation des emplois du temps sans chevauchement, jusqu'à la configuration des tranches de paiement et la génération en un clic de centaines de bulletins trimestriels PDF."] }
+  ],
+  "/help/forum": [
+    { title: "Bien utiliser le Forum Communautaire", content: ["Le forum de l'école est une formidable opportunité si l'on sait s'en servir.", "Apprenez comment choisir la bonne 'Thématique', comment utiliser les mots-clés (Tags) pour que votre publication soit retrouvée facilement, comment ajouter un sondage ou une galerie photo, et comment signaler un abus à la modération."] }
   ]
 };
 
